@@ -8,7 +8,7 @@ describe('LoginButtonComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginButtonComponent]
+      imports: [LoginButtonComponent]
     });
     fixture = TestBed.createComponent(LoginButtonComponent);
     component = fixture.componentInstance;

@@ -1,25 +1,38 @@
-import { NgModule } from '@angular/core';
-import { GranpLibComponent } from './granp-lib.component';
+import { NgModule, InjectionToken } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 import { LoginButtonComponent } from './login-button/login-button.component';
-import { SignupButtonComponent } from './signup-button/signup-button.component';
-import { LogoutButtonComponent } from './logout-button/logout-button.component';
 
+export interface GranpLibConfig {
+    apiServerUrl: string;
+    auth0Domain: string;
+    auth0ClientId: string;
+    auth0CallbackUrl: string;
+    auth0Audience: string;
+    auth0Scope: string;
+}
 
+export const LibConfigService = new InjectionToken<GranpLibConfig>('LibConfig');
 
 @NgModule({
-  declarations: [
-    GranpLibComponent,
-    LoginButtonComponent,
-    SignupButtonComponent,
-    LogoutButtonComponent
-  ],
-  imports: [
-  ],
-  exports: [
-    GranpLibComponent,
-    LoginButtonComponent,
-    SignupButtonComponent,
-    LogoutButtonComponent
-  ]
+    declarations: [],
+    imports: [
+        CommonModule,
+        IonicModule,
+        LoginButtonComponent
+    ],
+    exports: []
 })
-export class GranpLibModule { }
+export class GranpLibModule {
+    static forRoot(config: GranpLibConfig) {
+        return {
+            ngModule: GranpLibModule,
+            providers: [
+                {
+                    provide: LibConfigService,
+                    useValue: config
+                }
+            ]
+        }
+    }
+}
