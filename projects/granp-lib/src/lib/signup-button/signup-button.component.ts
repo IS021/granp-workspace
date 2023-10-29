@@ -5,22 +5,23 @@ import { AuthService } from '@auth0/auth0-angular';
 import { Browser } from '@capacitor/browser';
 
 @Component({
-    selector: 'gp-login-button',
+    selector: 'gp-signup-button',
     standalone: true,
     imports: [CommonModule, IonButton],
     template: `
-        <ion-button (click)="handleLogin()" color="default" expand="block" fill="clear">Log in</ion-button>
+        <ion-button (click)="handleSignUp()" color="default" expand="block" fill="clear">Login</ion-button>
     `,
     styles: []
 })
-export class LoginButtonComponent {
+export class SignupButtonComponent {
     auth = inject(AuthService);
 
-    handleLogin() {
+    handleSignUp(): void {
         this.auth
             .loginWithRedirect({
                 authorizationParams: {
                     prompt: 'login',
+                    screen_hint: 'signup'
                 },
                 openUrl: (url) => Browser.open({ url, windowName: '_self' })
             }).subscribe();

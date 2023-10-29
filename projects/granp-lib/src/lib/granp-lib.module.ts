@@ -2,9 +2,11 @@ import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { LoginButtonComponent } from './login-button/login-button.component';
+import { LogoutButtonComponent, SignupButtonComponent } from '../public-api';
 
 export interface GranpLibConfig {
     apiServerUrl: string;
+    logoutRedirectUri: string;
 }
 
 export const LibConfigService = new InjectionToken<GranpLibConfig>('LibConfig');
@@ -14,7 +16,9 @@ export const LibConfigService = new InjectionToken<GranpLibConfig>('LibConfig');
     imports: [
         CommonModule,
         IonicModule,
-        LoginButtonComponent
+        LoginButtonComponent,
+        LogoutButtonComponent,
+        SignupButtonComponent
     ],
     exports: []
 })
