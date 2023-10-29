@@ -2,7 +2,6 @@ import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { LoginButtonComponent } from './login-button/login-button.component';
-import { AuthModule } from '@auth0/auth0-angular';
 
 export interface GranpLibConfig {
     apiServerUrl: string;
