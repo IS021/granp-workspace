@@ -1,0 +1,29 @@
+h1 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+h2 {
+    margin: 0;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 2rem;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100%;
+
+    padding: 2rem;
+}

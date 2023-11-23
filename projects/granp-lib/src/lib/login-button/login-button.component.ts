@@ -9,7 +9,7 @@ import { Browser } from '@capacitor/browser';
     standalone: true,
     imports: [CommonModule, IonButton],
     template: `
-        <ion-button (click)="handleLogin()" color="default" expand="block" fill="clear">Log in</ion-button>
+        <ion-button class="loginButton" (click)="handleLogin()" expand="block" fill="outline" size="large">Accedi</ion-button>
     `,
     styles: []
 })

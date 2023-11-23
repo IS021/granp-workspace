@@ -10,7 +10,7 @@ import { LibConfigService } from '../granp-lib.module';
     standalone: true,
     imports: [CommonModule, IonButton],
     template: `
-        <ion-button (click)="handleLogout()" color="default" expand="block" fill="clear">Log out</ion-button>
+        <ion-button (click)="handleLogout()" color="default" expand="block" fill="clear">Esci</ion-button>
     `,
     styles: []
 })
