@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Chat </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Chat</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item *ngFor="let chat of chats" button detail="false" (click)="openChat(chat.id)">
+      <ion-avatar slot="start">
+        <img [src]="chat.image"/>
+      </ion-avatar>
+      <ion-label>
+        <strong>{{chat.name}}</strong>
+        <!--<ion-text>Never Gonna Give You Up</ion-text><br />-->
+        <ion-note color="medium" class="ion-text-wrap two-line-note">
+            {{chat.lastMessage.text}}
+        </ion-note>
+      </ion-label>
+      <div class="metadata-end-wrapper" slot="end">
+        <ion-note color="medium">
+            {{chat.lastMessage.time}}
+        </ion-note>
+        <!--<ion-icon color="medium" name="chevron-forward"></ion-icon>-->
+        <div *ngIf="chat.unreadMessages > 0" class="unread-indicator">{{chat.unreadMessages}}</div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
