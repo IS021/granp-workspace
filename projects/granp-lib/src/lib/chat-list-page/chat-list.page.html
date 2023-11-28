@@ -20,12 +20,12 @@
         <strong>{{chat.name}}</strong>
         <!--<ion-text>Never Gonna Give You Up</ion-text><br />-->
         <ion-note color="medium" class="ion-text-wrap two-line-note">
-            {{chat.lastMessage.text}}
+            {{chat.lastMessage.content}}
         </ion-note>
       </ion-label>
       <div class="metadata-end-wrapper" slot="end">
         <ion-note color="medium">
-            {{chat.lastMessage.time}}
+            {{chat.lastMessage.time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}}
         </ion-note>
         <!--<ion-icon color="medium" name="chevron-forward"></ion-icon>-->
         <div *ngIf="chat.unreadMessages > 0" class="unread-indicator">{{chat.unreadMessages}}</div>

@@ -2,6 +2,9 @@ import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { ChatService } from './chat.service';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 export interface GranpLibConfig {
     apiServerUrl: string;
@@ -14,7 +17,8 @@ export const LibConfigService = new InjectionToken<GranpLibConfig>('LibConfig');
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule
+        IonicModule,
+        HttpClientModule
     ],
     exports: [],
     declarations: []
@@ -29,7 +33,13 @@ export class GranpLibModule {
                 {
                     provide: LibConfigService,
                     useValue: config
-                }
+                },
+                {
+                    provide: ChatService
+                },
+                {
+                    provide: HttpClient
+                },
             ]
         }
     }

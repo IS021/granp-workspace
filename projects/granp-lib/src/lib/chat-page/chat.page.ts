@@ -2,10 +2,12 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonBackButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonItem, IonList, IonTitle, IonToolbar, IonButton, IonAvatar, IonNote, IonText, IonInput, IonTextarea } from '@ionic/angular/standalone';
-// import { ChatService } from '../chat.service';
+import { ChatService } from '../chat.service';
 
 import { addIcons } from 'ionicons';
 import { send } from 'ionicons/icons';
+
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'gp-chat-page',
@@ -15,48 +17,28 @@ import { send } from 'ionicons/icons';
   styleUrls: ['./chat.page.css']
 })
 export class ChatPage {
-    // chatService = inject(ChatService);
+    chatService = inject(ChatService);
+    activatedRoute = inject(ActivatedRoute);
 
-    messages: any[] = [
-        {
-            content: "Hello",
-            sender: "user",
-            time: new Date(10, 0, 0, 10, 0, 0),
-        },
-        {
-            content: "Hi",
-            sender: "other",
-            time: new Date(10, 0, 0, 10, 1, 0),
-        },
-        {
-            content: "How are you?",
-            sender: "user",
-            time: new Date(10, 0, 0, 10, 2, 0),
-        },
-        {
-            content: "Fine",
-            sender: "other",
-            time: new Date(10, 0, 0, 10, 3, 0),
-        },
-        {
-            content: "Thank you",
-            sender: "other",
-            time: new Date(10, 0, 0, 10, 4, 0),
-        },
-        {
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
-            sender: "user",
-            time: new Date(10, 0, 0, 10, 5, 0),
-        }
-    ];
+    messages: any[] = [];
+    user: any = {};
 
     message = "";
+    chatId: number;
 
     constructor() {
         addIcons({send});
+
+        this.chatId = this.activatedRoute.snapshot.params['id'];
+        console.log(this.chatId);
+
+        // This will be a subscription to the chat service
+        this.messages = this.chatService.getChat(this.chatId)
+        this.user = this.chatService.getUserInfo(this.chatId);
     }
 
     sendMessage() {
+        // This will be a call to the chat service
         this.messages.push({
             content: this.message,
             sender: "user",

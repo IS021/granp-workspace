@@ -1,15 +1,17 @@
-
 <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button text="" defaultHref="/tabs/chat"></ion-back-button>
+        <ion-back-button text=" " defaultHref="/tabs/chats"></ion-back-button>
       </ion-buttons>
-      <div class="profile-bar"> 
-        <ion-avatar>
-            <img src="https://www.gravatar.com/avatar?d=mp" />
-        </ion-avatar>
-        <ion-title>{{ "User Name" }}</ion-title>
-      </div>
+
+      <ion-title>
+        <div class="profile-bar">
+            <ion-avatar>
+                <img [src]="user.image" />
+            </ion-avatar>
+            <ion-text class="title">{{ user.name }}</ion-text>
+        </div>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
   
