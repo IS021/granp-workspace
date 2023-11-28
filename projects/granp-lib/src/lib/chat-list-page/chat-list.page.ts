@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { NgFor, NgIf } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { chevronForward } from 'ionicons/icons';
+import { IonAvatar, IonContent, IonHeader, IonItem, IonLabel, IonList, IonNote, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+
 
 @Component({
     selector: 'gp-chat-list-page',
     standalone: true,
     templateUrl: './chat-list.page.html',
     styleUrls: ['./chat-list.page.css'],
-    imports: [IonicModule, NgFor, NgIf]
+    imports: [NgFor, NgIf, IonHeader, IonTitle, IonToolbar, IonContent, IonList, IonItem, IonAvatar, IonNote, IonLabel]
 })
 export class ChatListPage {
 

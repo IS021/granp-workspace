@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChatListPageComponent } from './chat-list.page';
+import { ChatListPage } from './chat-list.page';
 
 describe('ChatListPageComponent', () => {
-  let component: ChatListPageComponent;
-  let fixture: ComponentFixture<ChatListPageComponent>;
+  let component: ChatListPage;
+  let fixture: ComponentFixture<ChatListPage>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ChatListPageComponent]
+      declarations: [ChatListPage]
     });
-    fixture = TestBed.createComponent(ChatListPageComponent);
+    fixture = TestBed.createComponent(ChatListPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,99 @@
+ion-textarea {
+    --padding-top: 0.8em;
+    --padding-bottom: 0em;
+    --padding-start: 0.5em;
+    --padding-end: 0.5em;
+}
+
+ion-avatar {
+    height: 2.5em;
+    width: 2.5em;
+}
+
+ion-title {
+    font-size: 1.1em;
+    text-align: left;
+}
+
+.chat-list {
+    padding-top: 0.5em;
+}
+
+.ios ion-title {
+    margin-left: 0.5em;
+}
+
+.profile-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.2em 1em;
+}
+
+ion-item {
+    --padding-start: 0.5em;
+    --inner-padding-end: 0.5em;
+}
+
+.message {
+    margin: 0 0.1em 0.8em 0.1em;
+    padding: 0.8em 1em 0.8em 1em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    max-width: 85%;
+}
+
+ion-text {
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+ion-note {
+    margin: 0.3em 0 -0.3em 1em;
+    font-size: 0.8em;
+    align-self: flex-end;
+}
+
+.sent-message {
+    background: var(--ion-color-primary);
+
+    color: var(--ion-color-primary-contrast);
+
+    ion-note {
+        color: var(--ion-color-primary-contrast);
+    }
+}
+
+.ios .sent-message {
+    border-radius: 1em 1em 0 1em;
+}
+
+.md .sent-message {
+    border-radius: 0.5em;
+}
+
+.received-message {
+    background: var(--ion-color-light);
+}
+
+.ios .received-message {
+    border-radius: 1em 1em 1em 0;
+}
+
+.md .received-message {
+    border-radius: 0.5em;
+}
+
+.ios .consecutive-message {
+    margin-bottom: 0.2em !important;
+    border-radius: 0.8em !important;
+}
+
+.md .consecutive-message {
+    margin-bottom: 0.2em !important;
+    border-radius: 0.5em !important;
+}

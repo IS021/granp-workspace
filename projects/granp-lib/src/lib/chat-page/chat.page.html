@@ -1,1 +1,49 @@
-<!-- Ionic Chat -->
+
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button text="" defaultHref="/tabs/chat"></ion-back-button>
+      </ion-buttons>
+      <div class="profile-bar"> 
+        <ion-avatar>
+            <img src="https://www.gravatar.com/avatar?d=mp" />
+        </ion-avatar>
+        <ion-title>{{ "User Name" }}</ion-title>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list lines="none" class="chat-list">
+      <ion-item *ngFor="let message of messages, index as i">
+        <div
+            [classList]="getMessageClass(i) + ' message'"
+            [slot]="message.sender === 'user' ? 'end' : 'start'"
+        >
+            <ion-text>{{ message.content }}</ion-text>
+            <ion-note [color]="message.sender === 'user' ? 'dark' : 'medium'">
+                {{ message.time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}
+            </ion-note>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+  <ion-footer>
+    <ion-toolbar>
+        <ion-textarea
+            color="primary"
+            placeholder="Scrivi un messaggio..."
+            [(ngModel)]="message"
+            (keyup.enter)="sendMessage()"
+            maxlength="256"
+            [autoGrow]="true"
+            [rows]="1"
+        ></ion-textarea>
+        <ion-buttons slot="end">
+            <ion-button (click)="sendMessage()">
+                <ion-icon slot="icon-only" name="send"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
