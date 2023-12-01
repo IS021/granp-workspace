@@ -17,6 +17,16 @@ export class SignupButtonComponent {
     auth = inject(AuthService);
 
     handleSignUp(): void {
+
+        if (window.location.hostname === "localhost") {
+            this.auth.loginWithRedirect({
+                    authorizationParams: {
+                        prompt: 'login',
+                        screen_hint: 'signup'
+            }});
+            return;
+        }
+
         this.auth
             .loginWithRedirect({
                 authorizationParams: {

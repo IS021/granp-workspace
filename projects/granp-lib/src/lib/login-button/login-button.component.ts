@@ -17,6 +17,14 @@ export class LoginButtonComponent {
     auth = inject(AuthService);
 
     handleLogin() {
+        // If environment is production, use the default loginWithRedirect
+        // Otherwise, use loginWithRedirect with a custom openUrl function
+
+        if (window.location.hostname === "localhost") {
+            this.auth.loginWithRedirect();
+            return;
+        }
+                    
         this.auth
             .loginWithRedirect({
                 authorizationParams: {

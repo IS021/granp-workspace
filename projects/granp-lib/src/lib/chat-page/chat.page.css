@@ -6,8 +6,8 @@ ion-textarea {
 }
 
 ion-toolbar {
-    padding-top: 0.4em !important;
-    padding-bottom: 0.4em !important;
+    //padding-top: 0.4em !important;
+    //padding-bottom: 0.4em !important;
 }
 
 ion-avatar {
