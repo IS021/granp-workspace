@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonButton } from '@ionic/angular/standalone';
 import { AuthService } from '@auth0/auth0-angular';
 import { Browser } from '@capacitor/browser';
+import { LibConfigService } from '../granp-lib.module';
 
 @Component({
     selector: 'gp-login-button',
@@ -15,12 +16,13 @@ import { Browser } from '@capacitor/browser';
 })
 export class LoginButtonComponent {
     auth = inject(AuthService);
+    config = inject(LibConfigService);
 
     handleLogin() {
         // If environment is production, use the default loginWithRedirect
         // Otherwise, use loginWithRedirect with a custom openUrl function
 
-        if (window.location.hostname === "localhost") {
+        if (this.config.logoutRedirectUri.includes('localhost')) {
             this.auth.loginWithRedirect();
             return;
         }

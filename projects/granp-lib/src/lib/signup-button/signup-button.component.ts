@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonButton } from '@ionic/angular/standalone';
 import { AuthService } from '@auth0/auth0-angular';
 import { Browser } from '@capacitor/browser';
+import { LibConfigService } from '../granp-lib.module';
 
 @Component({
     selector: 'gp-signup-button',
@@ -15,10 +16,11 @@ import { Browser } from '@capacitor/browser';
 })
 export class SignupButtonComponent {
     auth = inject(AuthService);
+    config = inject(LibConfigService);
 
     handleSignUp(): void {
 
-        if (window.location.hostname === "localhost") {
+        if (this.config.logoutRedirectUri.includes('localhost')) {
             this.auth.loginWithRedirect({
                     authorizationParams: {
                         prompt: 'login',
