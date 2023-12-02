@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonBackButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonItem, IonList, IonTitle, IonToolbar, IonButton, IonAvatar, IonNote, IonText, IonInput, IonTextarea } from '@ionic/angular/standalone';
@@ -27,6 +27,8 @@ export class ChatPage {
     message = "";
     chatId: string;
 
+    @ViewChild(IonContent) content!: IonContent;
+
     constructor() {
         addIcons({send});
 
@@ -37,12 +39,25 @@ export class ChatPage {
             this.chat = chats.get(this.chatId);
             this.chatService.markChatAsRead(this.chatId);
             this.cdRef.markForCheck();
+
+            // Wait for the view to be updated, then scroll to bottom
+            setTimeout(() => {
+                this.scrollToBottom();
+            }, 100);
         });
+    }
+
+    scrollToBottom() {
+        this.content.scrollToBottom(100);
     }
 
     ionViewWillEnter() {
         this.chatService.refreshChatMessages(this.chatId);
         this.chatService.markChatAsRead(this.chatId);
+    }
+
+    ionViewDidEnter() {
+        this.scrollToBottom();
     }
 
     sendMessage() {
