@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ChatService } from './chat.service';
-import { HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 export interface GranpLibConfig {
     apiServerUrl: string;
@@ -38,7 +39,9 @@ export class GranpLibModule {
                     provide: ChatService
                 },
                 {
-                    provide: HttpClient
+                    provide: HTTP_INTERCEPTORS,
+                    useClass: AuthHttpInterceptor,
+                    multi: true
                 },
             ]
         }

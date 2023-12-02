@@ -12,20 +12,20 @@
   </ion-header>
 
   <ion-list>
-    <ion-item *ngFor="let chat of chats" button detail="false" (click)="openChat(chat.id)">
+    <ion-item *ngFor="let chat of chatService.chatDict.values()" button detail="false" (click)="openChat(chat.id)">
       <ion-avatar slot="start">
-        <img [src]="chat.image"/>
+        <img *ngIf="chat.profilePicture !== null" [src]="chat.profilePicture"/>
+        <img *ngIf="chat.profilePicture === null" src="/assets/default-profile-picture.png"/>
       </ion-avatar>
       <ion-label>
         <strong>{{chat.name}}</strong>
-        <!--<ion-text>Never Gonna Give You Up</ion-text><br />-->
         <ion-note color="medium" class="ion-text-wrap two-line-note">
-            {{chat.lastMessage.content}}
+            {{chat.lastMessage}}
         </ion-note>
       </ion-label>
       <div class="metadata-end-wrapper" slot="end">
         <ion-note color="medium">
-            {{chat.lastMessage.time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}}
+            {{chat.time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}}
         </ion-note>
         <!--<ion-icon color="medium" name="chevron-forward"></ion-icon>-->
         <div *ngIf="chat.unreadMessages > 0" class="unread-indicator">{{chat.unreadMessages}}</div>

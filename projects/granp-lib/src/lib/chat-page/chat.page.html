@@ -7,9 +7,10 @@
       <ion-title>
         <div class="profile-bar">
             <ion-avatar>
-                <img [src]="user.image" />
+                <img *ngIf="chat?.profilePicture !== null" [src]="chat?.profilePicture"/>
+                <img *ngIf="chat?.profilePicture === null" src="/assets/default-profile-picture.png"/>
             </ion-avatar>
-            <ion-text class="title">{{ user.name }}</ion-text>
+            <ion-text class="title">{{ chat?.name }}</ion-text>
         </div>
       </ion-title>
     </ion-toolbar>
@@ -17,7 +18,7 @@
   
   <ion-content>
     <ion-list lines="none" class="chat-list">
-      <ion-item *ngFor="let message of messages, index as i">
+      <ion-item *ngFor="let message of chat?.messages, index as i">
         <div
             [classList]="getMessageClass(i) + ' message'"
             [slot]="message.sender === 'user' ? 'end' : 'start'"

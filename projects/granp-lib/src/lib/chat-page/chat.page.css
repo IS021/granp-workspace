@@ -5,18 +5,23 @@ ion-textarea {
     --padding-end: 0.5em;
 }
 
-ion-toolbar {
+.ios ion-toolbar {
     //padding-top: 0.4em !important;
     padding-bottom: 0.4em !important;
 }
 
 ion-avatar {
-    height: 2.5em;
-    width: 2.5em;
+    height: 2.4em;
+    width: 2.4em;
 }
 
 .ios ion-title {
     padding-left: 2.5em;
+    padding-inline-end: 1em;
+}
+
+.md ion-title {
+    padding-inline: 0;
 }
 
 .title {
@@ -24,6 +29,7 @@ ion-avatar {
     font-size: 1.1em;
     font-weight: bold;
     display: flex;
+    text-overflow: ellipsis;
 }
 
 .chat-list {
