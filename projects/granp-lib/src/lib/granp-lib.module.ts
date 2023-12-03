@@ -10,6 +10,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 export interface GranpLibConfig {
     apiServerUrl: string;
     logoutRedirectUri: string;
+    role : string;
 }
 
 export const LibConfigService = new InjectionToken<GranpLibConfig>('LibConfig');

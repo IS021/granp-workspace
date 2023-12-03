@@ -8,6 +8,7 @@ import { addIcons } from 'ionicons';
 import { send } from 'ionicons/icons';
 
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'gp-chat-page',
@@ -27,6 +28,8 @@ export class ChatPage {
     message = "";
     chatId: string;
 
+    chatSubscription?: Subscription;
+
     @ViewChild(IonContent) content!: IonContent;
 
     constructor() {
@@ -37,7 +40,6 @@ export class ChatPage {
         // This will be a subscription to the chat service
         this.chatService.chats.subscribe(chats => {
             this.chat = chats.get(this.chatId);
-            this.chatService.markChatAsRead(this.chatId);
             this.cdRef.markForCheck();
 
             // Wait for the view to be updated, then scroll to bottom
@@ -58,6 +60,14 @@ export class ChatPage {
 
     ionViewDidEnter() {
         this.scrollToBottom();
+
+        this.chatSubscription = this.chatService.chats.subscribe(() => {
+            this.chatService.markChatAsRead(this.chatId);
+        });
+    }
+
+    ionViewWillLeave() {
+        this.chatSubscription?.unsubscribe();
     }
 
     sendMessage() {
