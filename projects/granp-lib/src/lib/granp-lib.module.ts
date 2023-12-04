@@ -6,6 +6,7 @@ import { ChatService } from './chat.service';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { GeocodingService } from './geocoding.service';
 
 export interface GranpLibConfig {
     apiServerUrl: string;
@@ -45,6 +46,9 @@ export class GranpLibModule {
                     useClass: AuthHttpInterceptor,
                     multi: true
                 },
+                {
+                    provide: GeocodingService
+                }
             ]
         }
     }
