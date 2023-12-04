@@ -11,6 +11,7 @@ export interface GranpLibConfig {
     apiServerUrl: string;
     logoutRedirectUri: string;
     role : string;
+    mapboxAccessToken: string;
 }
 
 export const LibConfigService = new InjectionToken<GranpLibConfig>('LibConfig');
