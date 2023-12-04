@@ -22,4 +22,10 @@ export class GeocodingService {
 
     return this.http.get(url);
   }
+
+  getReverseGeocodeLocation(latitude: number, longitude: number) {
+    const url = `${this.apiUrl}/${longitude},${latitude}.json?access_token=${this.config.mapboxAccessToken}`;
+
+    return this.http.get(url);
+  }
 }
