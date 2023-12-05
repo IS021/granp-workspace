@@ -5,6 +5,7 @@
 export * from './lib/granp-lib.service';
 export * from './lib/chat.service';
 export * from './lib/profile.service';
+export * from './lib/geocoding.service';
 
 export * from './lib/granp-lib.module';
 

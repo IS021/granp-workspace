@@ -19,6 +19,6 @@ export class ProfileService {
     }
 
     public completeProfile(profile: any): Promise<void> {
-        return lastValueFrom(this.http.post<void>(new URL('./complete', this.profileUrl).href, profile));
+        return lastValueFrom(this.http.post<void>(this.profileUrl + '/complete', profile));
     }
 }
