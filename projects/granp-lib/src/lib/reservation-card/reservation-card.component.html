@@ -1,0 +1,29 @@
+<ion-card>
+    <ion-card-header class="header">
+        <!-- Add (click) event binding to call SHOW DETAILS -->
+        <ion-card-title *ngIf="!forProfessional" class="title">{{reservation?.professional?.firstName}} {{reservation?.professional?.lastName}}</ion-card-title>
+        <ion-card-title *ngIf="forProfessional" class="title">{{reservation?.customer}} {{reservation?.customer?.lastName}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <!--
+        <ion-label *ngIf="reservation.atHome">Domicilio</ion-label>
+        <ion-label *ngIf="!reservation.atHome">Studio</ion-label>
+        
+    -->
+
+        <!--Show status-->
+        <ng-container *ngIf="showStatus">
+            <ion-label *ngIf="reservation?.status === 0">In Attesa</ion-label>
+            <ion-label *ngIf="reservation?.status === 1">Accettata</ion-label>
+            <ion-label *ngIf="reservation?.status === 2">Rifiutata</ion-label>
+            <ion-label *ngIf="reservation?.status === 3">Annullata</ion-label>
+        </ng-container>
+
+        <br>{{reservation?.date}} - {{reservation?.start}} - {{reservation?.end}}
+        
+        <div class="container" *ngIf="showButtons && forProfessional">
+            <ion-button color="success" size="small" (click)="acceptReservation()">Accetta</ion-button>
+            <ion-button color="danger" size="small" (click)="rejectReservation()">Rifiuta</ion-button>
+        </div>
+    </ion-card-content>
+</ion-card>

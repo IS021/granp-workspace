@@ -1,1 +1,11 @@
-<p>birthdate-selector works!</p>
+<ion-item id="open-modal">
+    <ion-input label="Data di nascita" label-placement="floating" [ngModel]="birthdate"
+        required></ion-input>
+</ion-item>
+
+<ion-modal trigger="open-modal">
+    <ng-template>
+        <ion-datetime locale="it-IT" [presentation]="'date'" (ionChange)="setBirthdate($event)"
+            showDefaultButtons="true" (ionCancel)="showPicker=false;"></ion-datetime>
+    </ng-template>
+</ion-modal>

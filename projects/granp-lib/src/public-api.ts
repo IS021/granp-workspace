@@ -15,6 +15,8 @@ export * from './lib/signup-button/signup-button.component';
 export * from './lib/avatar/avatar.component';
 export * from './lib/image-selector/image-selector.component';
 export * from './lib/address-selector/address-selector.component';
+export * from './lib/birthdate-selector/birthdate-selector.component';
+export * from './lib/reservation-card/reservation-card.component';
 
 export * from './lib/granp-lib.routes';
 

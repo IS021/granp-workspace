@@ -11,4 +11,8 @@ import { IonContent, IonDatetime, IonHeader, IonTitle, IonToolbar } from '@ionic
 })
 export class CalendarPage {
 
+    dateChanged(event: CustomEvent) {
+        console.log(event.detail.value);
+    }
+
 }
