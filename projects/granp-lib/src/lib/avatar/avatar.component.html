@@ -1,22 +1,16 @@
-<ion-avatar [class]="styleClass" [style.height]="height" [style.width]="width">
+<ion-avatar [class]="styleClass" [style.height]="height" [style.width]="width" [style.position]="'relative'">
     <!-- Use ngIf to conditionally show the image or the default avatar -->
     <ng-container *ngIf="profilePicture; else showDefaultAvatar">
         <img [src]="profilePicture" alt="User's profile picture"/>
-        
-        <ion-icon name="checkmark-done-circle" class="ion-true" *ngIf="verified === true"
-            (click)="presentToast('Utente verificato')"></ion-icon>
-
-        <ion-icon name="alert-circle" class="ion-false" *ngIf="verified === false"
-            (click)="presentToast('Utente non verificato')"></ion-icon>
-
     </ng-container>
+
     <ng-template #showDefaultAvatar>
         <img alt="Silhouette of a person's head" src="/assets/avatar.svg" />
-
-        <ion-icon name="checkmark-done-circle" class="ion-true" *ngIf="verified === true"
-            (click)="presentToast('Utente verificato')"></ion-icon>
-
-        <ion-icon name="alert-circle" class="ion-false" *ngIf="verified === false"
-            (click)="presentToast('Utente non verificato')"></ion-icon>
     </ng-template>
+
+    <ion-icon name="checkmark-done-circle" class="ion-true" *ngIf="verified === true"
+            (click)="presentToast('Utente verificato')" [style.height]="iconRatio" [style.width]="iconRatio"></ion-icon>
+
+    <ion-icon name="alert-circle" class="ion-false" *ngIf="verified === false"
+        (click)="presentToast('Utente non verificato')" [style.height]="iconRatio" [style.width]="iconRatio"></ion-icon>
 </ion-avatar>

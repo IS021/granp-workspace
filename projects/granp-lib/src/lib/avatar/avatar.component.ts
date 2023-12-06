@@ -20,6 +20,8 @@ export class AvatarComponent {
 
     @Input() styleClass: string = '';
 
+    @Input() iconRatio: string = '20%';
+
     toastController = inject(ToastController);
 
     async presentToast(message: string) {
