@@ -13,10 +13,6 @@ export class GeocodingService {
   config = inject(LibConfigService);
   auth = inject(AuthService);
 
-
-
-
-
   getAddressLocation(address: string) {
     const url = `${this.apiUrl}/${encodeURIComponent(address)}.json?access_token=${this.config.mapboxAccessToken}`;
 

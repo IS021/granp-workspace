@@ -25,8 +25,6 @@ export const LibConfigService = new InjectionToken<GranpLibConfig>('LibConfig');
         HttpClientModule
     ],
     exports: [],
-    declarations: []
-
 })
 
 export class GranpLibModule {
