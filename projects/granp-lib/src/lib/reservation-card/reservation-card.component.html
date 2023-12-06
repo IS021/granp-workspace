@@ -2,7 +2,7 @@
     <ion-card-header class="header">
         <!-- Add (click) event binding to call SHOW DETAILS -->
         <ion-card-title *ngIf="!forProfessional" class="title">{{reservation?.professional?.firstName}} {{reservation?.professional?.lastName}}</ion-card-title>
-        <ion-card-title *ngIf="forProfessional" class="title">{{reservation?.customer}} {{reservation?.customer?.lastName}}</ion-card-title>
+        <ion-card-title *ngIf="forProfessional" class="title">{{reservation?.customer?.firstName}} {{reservation?.customer?.lastName}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
         <!--
