@@ -9,7 +9,7 @@
     </ng-template>
 
     <ion-icon name="checkmark-done-circle" class="ion-true" *ngIf="verified === true"
-            (click)="presentToast('Utente verificato')" [style.height]="iconRatio" [style.width]="iconRatio"></ion-icon>
+        (click)="presentToast('Utente verificato')" [style.height]="iconRatio" [style.width]="iconRatio"></ion-icon>
 
     <ion-icon name="alert-circle" class="ion-false" *ngIf="verified === false"
         (click)="presentToast('Utente non verificato')" [style.height]="iconRatio" [style.width]="iconRatio"></ion-icon>

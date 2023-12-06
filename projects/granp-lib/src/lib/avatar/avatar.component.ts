@@ -1,15 +1,16 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, Output, inject, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonAvatar, IonIcon, ToastController } from '@ionic/angular/standalone';
 import { checkmarkDoneCircle, alertCircle } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'gp-avatar',
     templateUrl: './avatar.component.html',
     styleUrls: ['./avatar.component.css'],
     standalone: true,
-    imports: [CommonModule, IonAvatar, IonIcon],
+    imports: [CommonModule, FormsModule, IonAvatar, IonIcon],
 })
 export class AvatarComponent {
     @Input() profilePicture?: string;

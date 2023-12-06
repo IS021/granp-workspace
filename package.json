@@ -20,6 +20,8 @@
     "@angular/router": "^16.0.0",
     "@auth0/auth0-angular": "^2.2.1",
     "@capacitor/browser": "^5.1.0",
+    "@capacitor/camera": "5.0.7",
+    "@capacitor/core": "5.5.0",
     "@microsoft/signalr": "^8.0.0",
     "auth0": "^4.1.0",
     "capacitor": "^0.5.6",
