@@ -3,6 +3,7 @@ export * from './GeoLocation'
 
 export * from './Availability'
 export * from './CustomerProfileRequest'
+export * from './CustomerPublicResponse'
 export * from './ProfessionalPublicResponse'
 export * from './ReservationResponse'
 
