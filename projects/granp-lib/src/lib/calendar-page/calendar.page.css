@@ -1,7 +1,47 @@
-.container {
-    margin-top: 1em;
+.calendar-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.reservation-container {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+    padding-top: 1em;
+}
+
+ion-datetime {
+    --background: transparent;
+    max-width: 100%;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+ion-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+ion-card {
+    margin-top: 0;
+}
+
+.container {
+    height: calc(100% - var(--offset-bottom));
+    display: flex;
+    flex-direction: column;
+}
+
+ion-note {
+    text-align: center;
 }

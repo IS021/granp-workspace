@@ -18,6 +18,11 @@ export class ReservationCardComponent {
     @Input() showButtons: boolean = false;
     @Input() forProfessional: boolean = false;
 
+    toLocaleDateString(date?: string) {
+        if (!date) return '';
+        return new Date(date).toLocaleDateString();
+    }
+
     acceptReservation() {
         console.log('Accepted reservation');
     }
