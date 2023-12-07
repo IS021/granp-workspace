@@ -11,12 +11,15 @@ export interface ProfessionalPublicResponse {
     gender: Gender;
     email: string;
     phoneNumber: string;
+    idCardNumber: string;
 
     description: string;
 
     profession: Profession;
     address: string;
     isVerified: boolean;
+
+    maxDistance: number;
     hourlyRate: number;
     longTimeJob: boolean;
     shortTimeJob: boolean;

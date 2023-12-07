@@ -4,6 +4,7 @@ export * from './GeoLocation'
 export * from './Availability'
 export * from './CustomerProfileRequest'
 export * from './CustomerPublicResponse'
+export * from './ProfessionalProfileRequest'
 export * from './ProfessionalPublicResponse'
 export * from './ReservationResponse'
 
