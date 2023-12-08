@@ -11,7 +11,6 @@ export interface ProfessionalPublicResponse {
     gender: Gender;
     email: string;
     phoneNumber: string;
-    idCardNumber: string;
 
     description: string;
 
@@ -19,7 +18,6 @@ export interface ProfessionalPublicResponse {
     address: string;
     isVerified: boolean;
 
-    maxDistance: number;
     hourlyRate: number;
     longTimeJob: boolean;
     shortTimeJob: boolean;
