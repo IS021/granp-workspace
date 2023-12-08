@@ -1,6 +1,7 @@
 import { Gender } from "./Gender";
 import { Profession } from "./Profession";
 import { Address } from "./Address";
+import { Availability } from "./Availability";
 
 export class ProfessionalProfileRequest {
 
@@ -26,6 +27,8 @@ export class ProfessionalProfileRequest {
     longTimeJob: boolean;
     shortTimeJob: boolean;
 
+    availabilities: Availability[] = [];
+
     constructor() {
         this.profilePicture = '';
         this.firstName = '';
@@ -48,6 +51,8 @@ export class ProfessionalProfileRequest {
         this.hourlyRate = 0;
         this.longTimeJob = false;
         this.shortTimeJob = false;
+
+        this.availabilities = [];
     }
 
 }

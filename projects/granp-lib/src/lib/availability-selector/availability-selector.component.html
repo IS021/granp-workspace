@@ -1,0 +1,85 @@
+<ion-list>
+    <ion-item>
+      <ion-label>Ora di inizio</ion-label>
+      <ion-datetime-button datetime="startHour" locale="it-IT"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="startHour" locale="it-IT" presentation="time" [showDefaultButtons]="true"
+            [value]="this.newAvailability.StartHour" (ionChange)="setStartHour($event)"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ora di fine</ion-label>
+      <ion-datetime-button datetime="endHour" locale="it-IT">Data di fine</ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="endHour" locale="it-IT" presentation="time" [showDefaultButtons]="true"
+            [value]="this.newAvailability.EndHour" (ionChange)="setEndHour($event)"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox [(ngModel)]="newAvailability.Monday">Lunedì</ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="newAvailability.Tuesday">Martedì</ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="newAvailability.Wednesday">Mercoledì</ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="newAvailability.Thursday">Giovedì</ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="newAvailability.Friday">Venerdì</ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="newAvailability.Saturday">Sabato</ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="newAvailability.Sunday">Domenica</ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-select [multiple]="false" label="Presso" labelPlacement="floating" [(ngModel)]="newAvailability.Place"
+        required>
+        <ion-select-option value="Studio">Studio</ion-select-option>
+        <ion-select-option value="Domicilio">Domicilio</ion-select-option>
+        <ion-select-option value="Studio/Domicilio">Studio/Domicilio</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div class="availabilityButton">
+        <ion-button fill="outline" expand="block" size="medium" (click)="addNewAvailability()">Aggiungi</ion-button>
+      </div>
+
+</ion-list>
+
+<ion-list>
+    <ion-item *ngFor="let availability of availabilities">
+      <ion-card>
+        <ion-card-content>
+          <b>Disponibile nei seguenti giorni:</b><br>
+          <ion-text *ngIf="availability.Monday">Lunedì </ion-text>
+          <ion-text *ngIf="availability.Tuesday">Martedì </ion-text>
+          <ion-text *ngIf="availability.Wednesday">Mercoledì </ion-text>
+          <ion-text *ngIf="availability.Thursday">Giovedì </ion-text>
+          <ion-text *ngIf="availability.Friday">Venerdì </ion-text>
+          <ion-text *ngIf="availability.Saturday">Sabato </ion-text>
+          <ion-text *ngIf="availability.Sunday">Domenica </ion-text>
+          <br>
+          <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
+          <b>Presso:</b> {{availability.Place}} <br>
+          <ion-icon name="trash-outline" slot="end" size="large"
+            (click)="removeAvailability(availability)"></ion-icon>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+
+
+
+</ion-list>
+

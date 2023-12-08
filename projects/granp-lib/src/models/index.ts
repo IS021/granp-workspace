@@ -7,6 +7,9 @@ export * from './CustomerPublicResponse'
 export * from './ProfessionalProfileRequest'
 export * from './ProfessionalPublicResponse'
 export * from './ReservationResponse'
+export * from './TimeSlotRequest'   
+export * from './TimeTableRequest'
+
 
 export * from './Gender'
 export * from './Place'
