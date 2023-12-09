@@ -1,11 +1,11 @@
 export class GeoLocation {
     // Properties
-    Latitude: number;
-    Longitude: number;
+    latitude: number;
+    longitude: number;
   
     // Constructor
     constructor(Latitude: number, Longitude: number) {
-      this.Latitude = Latitude;
-      this.Longitude = Longitude
+      this.latitude = Latitude;
+      this.longitude = Longitude
     }
   }

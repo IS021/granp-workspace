@@ -26,7 +26,7 @@ export class AddressSelectorComponent {
     addressString: string = '';
 
     submitElderAddress() {
-        this.addressString = `${this.address.Street} ${this.address.StreetNumber}, ${this.address.City}, ${this.address.ZipCode}`;
+        this.addressString = `${this.address.street} ${this.address.streetNumber}, ${this.address.city}, ${this.address.zipCode}`;
         this.handleAddress(this.addressString);
 
         // Dismiss the modal and pass addressString
@@ -41,12 +41,12 @@ export class AddressSelectorComponent {
 
             if (data.features && data.features.length > 0) {
                 const coordinates = data.features[0].geometry.coordinates;
-                this.address.Location!.Latitude = coordinates[1];
-                this.address.Location!.Longitude = coordinates[0];
+                this.address.location!.latitude = coordinates[1];
+                this.address.location!.longitude = coordinates[0];
 
                 this.geocodingService.getReverseGeocodeLocation(
-                        this.address.Location!.Latitude,
-                        this.address.Location!.Longitude
+                        this.address.location!.latitude,
+                        this.address.location!.longitude
                     ).subscribe((reverseData: any) => {
 
                         if (reverseData.features && reverseData.features.length > 0) {

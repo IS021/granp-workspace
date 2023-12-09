@@ -8,7 +8,7 @@ export interface ProfessionalPublicResponse {
     lastName: string;
     birthDate: string;
     age: number;
-    gender: Gender;
+    gender?: Gender;
     email: string;
     phoneNumber: string;
 

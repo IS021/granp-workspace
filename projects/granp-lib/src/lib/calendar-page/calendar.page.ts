@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonDatetime, IonHeader, IonNote, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { ReservationCardComponent } from '../reservation-card/reservation-card.component';
-import { ReservationResponse, ReservationStatus, Gender, Profession } from '../../models';
+import { ReservationResponse, ReservationStatus, Gender, Profession, Address } from '../../models';
 
 @Component({
     selector: 'gp-calendar.page',
@@ -39,10 +39,9 @@ export class CalendarPage {
             profilePicture: 'd',
             elderFirstName: 'c',
             elderLastName: 'df',
-            elderAddress: 'd',
+            elderAddress: new Address(),
             elderBirthDate: 'sd',
             elderAge: 23,
-            elderGender: Gender.Other,
             elderTelephoneNumber: 'dv',
             elderDescription: 'sd',
             firstName: 'sdc',
@@ -79,10 +78,9 @@ export class CalendarPage {
             profilePicture: 'd',
             elderFirstName: 'c',
             elderLastName: 'df',
-            elderAddress: 'd',
+            elderAddress: new Address(),
             elderBirthDate: 'sd',
             elderAge: 23,
-            elderGender: Gender.Other,
             elderTelephoneNumber: 'dv',
             elderDescription: 'sd',
             firstName: 'sdc',

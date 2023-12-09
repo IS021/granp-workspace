@@ -7,6 +7,7 @@ export class ProfessionalProfileRequest {
 
     firstName: string;
     lastName: string;
+    gender?: Gender;
     email: string;
     phoneNumber: string;
     profilePicture: string;

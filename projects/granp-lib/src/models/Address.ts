@@ -2,34 +2,34 @@ import { GeoLocation } from './GeoLocation';
 
 export class Address {
     // Properties
-    Street: string;
-    StreetNumber: string;
-    City: string;
-    ZipCode: string;
+    street: string;
+    streetNumber: string;
+    city: string;
+    zipCode: string;
 
-    Location: GeoLocation;
+    location: GeoLocation;
 
     // Constructor
     constructor() {
-        this.Street = '';
-        this.StreetNumber = '';
-        this.City = '';
-        this.ZipCode = '';
-        this.Location = new GeoLocation(0,0);
+        this.street = '';
+        this.streetNumber = '';
+        this.city = '';
+        this.zipCode = '';
+        this.location = new GeoLocation(0,0);
     }
 
     getFullAddress(): any {
-        if (this.StreetNumber === '' || this.Street === '' || this.City === '' || this.ZipCode === '') {
+        if (this.streetNumber === '' || this.street === '' || this.city === '' || this.zipCode === '') {
             return null ;
         }
-        return `${this.Street} ${this.StreetNumber}, ${this.City}, ${this.ZipCode}`;
+        return `${this.street} ${this.streetNumber}, ${this.city}, ${this.zipCode}`;
     }
 
     setFullAddress(fullAddress: string) {
         const addressArray = fullAddress.split(', ');
-        this.Street = addressArray[0];
-        this.StreetNumber = addressArray[1];
-        this.City = addressArray[2];
-        this.ZipCode = addressArray[3];
+        this.street = addressArray[0];
+        this.streetNumber = addressArray[1];
+        this.city = addressArray[2];
+        this.zipCode = addressArray[3];
     }
 }

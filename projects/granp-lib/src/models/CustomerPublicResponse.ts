@@ -6,10 +6,10 @@ export interface CustomerPublicResponse {
 
     elderFirstName: string;
     elderLastName: string;
-    elderAddress: string;
+    gender?: Gender;
+    elderAddress: Address;
     elderBirthDate: string;
     elderAge: number;
-    elderGender: Gender;
     elderTelephoneNumber: string;
     elderDescription: string;
 

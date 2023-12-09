@@ -21,4 +21,12 @@ export class ProfileService {
     public completeProfile(profile: any): Promise<void> {
         return lastValueFrom(this.http.post<void>(this.profileUrl + '/complete', profile));
     }
+
+    public getProfile<T>(): Promise<any> {
+        return lastValueFrom(this.http.get<T>(this.profileUrl + '/get'));
+    }
+
+    public updateProfile(profile: any): Promise<void> {
+        return lastValueFrom(this.http.put<void>(this.profileUrl + '/update', profile));
+    }
 }
