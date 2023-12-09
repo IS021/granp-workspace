@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Output, EventEmitter, ChangeDetectorRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CameraService } from '../camera.service';
@@ -14,13 +14,14 @@ import { AvatarComponent } from '../avatar/avatar.component';
 })
 export class ImageSelectorComponent {
 
+    @Input() picture?: string;
     @Output() profilePicture: EventEmitter<string> = new EventEmitter<string>();
 
     cameraService = inject(CameraService);
     cdRef = inject(ChangeDetectorRef);
 
     imageSelected = false;
-    picture?: string;
+    
 
     takePicture() {
         this.cameraService.takePicture().then((picture) => {

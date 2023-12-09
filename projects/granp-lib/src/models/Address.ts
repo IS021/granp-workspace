@@ -18,8 +18,11 @@ export class Address {
         this.Location = new GeoLocation(0,0);
     }
 
-    getFullAddress(): string {
-        return `${this.Street}, ${this.StreetNumber}, ${this.City}, ${this.ZipCode}`;
+    getFullAddress(): any {
+        if (this.StreetNumber === '' || this.Street === '' || this.City === '' || this.ZipCode === '') {
+            return null ;
+        }
+        return `${this.Street} ${this.StreetNumber}, ${this.City}, ${this.ZipCode}`;
     }
 
     setFullAddress(fullAddress: string) {
