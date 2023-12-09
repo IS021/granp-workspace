@@ -9,7 +9,10 @@ export * from './ProfessionalPublicResponse'
 export * from './ReservationResponse'
 export * from './TimeSlotRequest'   
 export * from './TimeTableRequest'
-
+export * from './TimeTableResponse'
+export * from './TimeSlotResponse'
+export * from './SearchFilter'
+export * from './ReservationRequest'
 
 export * from './Gender'
 export * from './Place'

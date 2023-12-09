@@ -52,34 +52,26 @@
       </ion-select>
     </ion-item>
 
-    <div class="availabilityButton">
-        <ion-button fill="outline" expand="block" size="medium" (click)="addNewAvailability()">Aggiungi</ion-button>
-      </div>
+    <ion-button [style.margin-top]="'1em'" fill="outline" expand="block" size="medium" (click)="addNewAvailability()">Aggiungi</ion-button>
 
 </ion-list>
 
-<ion-list>
-    <ion-item *ngFor="let availability of availabilities">
-      <ion-card>
-        <ion-card-content>
-          <b>Disponibile nei seguenti giorni:</b><br>
-          <ion-text *ngIf="availability.Monday">Lunedì </ion-text>
-          <ion-text *ngIf="availability.Tuesday">Martedì </ion-text>
-          <ion-text *ngIf="availability.Wednesday">Mercoledì </ion-text>
-          <ion-text *ngIf="availability.Thursday">Giovedì </ion-text>
-          <ion-text *ngIf="availability.Friday">Venerdì </ion-text>
-          <ion-text *ngIf="availability.Saturday">Sabato </ion-text>
-          <ion-text *ngIf="availability.Sunday">Domenica </ion-text>
-          <br>
-          <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
-          <b>Presso:</b> {{availability.Place}} <br>
-          <ion-icon name="trash-outline" slot="end" size="large"
-            (click)="removeAvailability(availability)"></ion-icon>
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
-
-
-
-</ion-list>
-
+<ion-card *ngFor="let availability of availabilities">
+    <ion-card-content>
+        <b>Disponibile nei seguenti giorni: </b><br>
+        <!-- Display days with commas between, last visible one should not have the comma-->
+        <span *ngIf="availability.Monday">Lunedì, </span>
+        <span *ngIf="availability.Tuesday">Martedì, </span>
+        <span *ngIf="availability.Wednesday">Mercoledì, </span>
+        <span *ngIf="availability.Thursday">Giovedì, </span>
+        <span *ngIf="availability.Friday">Venerdì, </span>
+        <span *ngIf="availability.Saturday">Sabato, </span>
+        <span *ngIf="availability.Sunday">Domenica, </span>
+        <br>
+        <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
+        <b>Presso:</b> {{availability.Place}} <br>
+        <div [style.text-align]="'center'" [style.margin-top]="'0.5em'">
+            <ion-icon name="trash-outline" slot="end" size="large" (click)="removeAvailability(availability)"></ion-icon>
+        </div>
+    </ion-card-content>
+</ion-card>
