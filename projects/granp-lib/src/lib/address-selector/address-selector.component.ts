@@ -26,7 +26,7 @@ export class AddressSelectorComponent {
     addressString: string = '';
 
     submitElderAddress() {
-        this.addressString = `${this.address.Street}, ${this.address.StreetNumber}, ${this.address.City}, ${this.address.ZipCode}`;
+        this.addressString = `${this.address.Street} ${this.address.StreetNumber}, ${this.address.City}, ${this.address.ZipCode}`;
         this.handleAddress(this.addressString);
 
         // Dismiss the modal and pass addressString
