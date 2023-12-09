@@ -1,5 +1,3 @@
-.availabilityButton {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
+ion-list {
+    margin: 1em;
+}

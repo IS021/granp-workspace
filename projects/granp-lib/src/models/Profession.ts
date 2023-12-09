@@ -4,4 +4,4 @@ export enum Profession {
     Physiotherapist,
     Caregiver,
     Other
-    }
+}
