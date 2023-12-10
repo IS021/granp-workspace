@@ -1,17 +1,15 @@
-/*
-public class SearchFilter
-    {
-        public Profession? Profession { get; set; }
-        public TimeSlot TimeSlot { get; set; }
-        public double? MaxHourlyRate { get; set; }
-        public List<Gender?> Genders { get; set; }
-        public bool? LongTimeJob { get; set; }
-        public bool? ShortTimeJob { get; set; }
-        public float? MinRating { get; set; }
-        public int? MinAge { get; set; }
-        public int? MaxAge { get; set; }
-    }
- */
+import { Gender } from "./Gender";
+import { Profession } from "./Profession";
+import { TimeSlotRequest } from "./TimeSlotRequest";
 
 export class SearchFilter {
+    profession?: Profession;
+    timeSlots?: TimeSlotRequest[];
+    maxHourlyRate?: number;
+    genders?: Gender[];
+    longTimeJob?: boolean;
+    shortTimeJob?: boolean;
+    minRating?: number;
+    minAge?: number;
+    maxAge?: number;
 }

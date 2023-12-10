@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { SearchFilter } from '../models';
+import { ProfessionalPublicResponse, SearchFilter } from '../models';
 
 import { LibConfigService } from './granp-lib.module';
 import { HttpClient } from '@angular/common/http';
@@ -13,11 +13,11 @@ export class SearchService {
 
     private apiUrl = new URL('./search', this.config.apiServerUrl).href;
 
-    search(filter: SearchFilter) {
-        return new Promise<void>((resolve, reject) => {
-            this.http.post<void>(this.apiUrl, filter).subscribe({
-                next: () => {
-                    resolve();
+    search(filter: SearchFilter): Promise<ProfessionalPublicResponse[]> {
+        return new Promise<ProfessionalPublicResponse[]>((resolve, reject) => {
+            this.http.post<ProfessionalPublicResponse[]>(this.apiUrl, filter).subscribe({
+                next: (result) => {
+                    resolve(result);
                 },
                 error: (error) => {
                     reject(error);
@@ -26,11 +26,11 @@ export class SearchService {
         });
     }
 
-    professionalInfo(id: string) {
-        return new Promise<void>((resolve, reject) => {
-            this.http.get<void>(this.apiUrl + '/info', { params: { id: id } }).subscribe({
-                next: () => {
-                    resolve();
+    professionalInfo(id: string): Promise<ProfessionalPublicResponse> {
+        return new Promise<ProfessionalPublicResponse>((resolve, reject) => {
+            this.http.get<ProfessionalPublicResponse>(this.apiUrl + '/info', { params: { id: id } }).subscribe({
+                next: (result) => {
+                    resolve(result);
                 },
                 error: (error) => {
                     reject(error);
