@@ -14,7 +14,7 @@ import { FilePicker } from '@capawesome/capacitor-file-picker';
 })
 export class CertificateSelectorComponent {
 
-  @Input() certificate: string = '';
+  @Input() certificate?: string = '';
   @Output() certificateChange: EventEmitter<string> = new EventEmitter<string>();
 
   cdRef = inject(ChangeDetectorRef);
