@@ -19,7 +19,7 @@ import { trashOutline } from 'ionicons/icons';
 })
 export class AvailabilitySelectorComponent {
 
-  timeTable: TimeTableRequest = new TimeTableRequest();
+  timeSlots: TimeSlotRequest[] = []
   newAvailability: Availability = new Availability(
     '08:00',
     '09:00',
@@ -33,8 +33,9 @@ export class AvailabilitySelectorComponent {
     Place.Both
   );
 
-  @Input() availabilities: Availability[] = [];
-  @Output() availabilitiesChange: EventEmitter<Availability[]> = new EventEmitter<Availability[]>();
+  availabilities: Availability[] = [];
+
+  @Output() timeSlotsChange: EventEmitter<TimeSlotRequest[]> = new EventEmitter<TimeSlotRequest[]>();
 
   setStartHour(event: any) {
     this.newAvailability.StartHour = event.detail.value;
@@ -58,11 +59,10 @@ export class AvailabilitySelectorComponent {
     ) {
       const availability = this.newAvailability;
       this.availabilities.push(availability);
-      this.availabilitiesChange.emit(this.availabilities);
 
       //Manage timeslots addition
       if (availability.Monday) {
-        this.timeTable.timeSlots.push({
+        this.timeSlots.push({
           startTime: availability.StartHour,
           endTime: availability.EndHour,
           weekDay: 1,
@@ -70,7 +70,7 @@ export class AvailabilitySelectorComponent {
         });
       }
       if (availability.Tuesday) {
-        this.timeTable.timeSlots.push({
+        this.timeSlots.push({
           startTime: availability.StartHour,
           endTime: availability.EndHour,
           weekDay: 1,
@@ -78,7 +78,7 @@ export class AvailabilitySelectorComponent {
         });
       }
       if (availability.Wednesday) {
-        this.timeTable.timeSlots.push({
+        this.timeSlots.push({
           startTime: availability.StartHour,
           endTime: availability.EndHour,
           weekDay: 3,
@@ -86,7 +86,7 @@ export class AvailabilitySelectorComponent {
         });
       }
       if (availability.Thursday) {
-        this.timeTable.timeSlots.push({
+        this.timeSlots.push({
           startTime: availability.StartHour,
           endTime: availability.EndHour,
           weekDay: 4,
@@ -94,7 +94,7 @@ export class AvailabilitySelectorComponent {
         });
       }
       if (availability.Friday) {
-        this.timeTable.timeSlots.push({
+        this.timeSlots.push({
           startTime: availability.StartHour,
           endTime: availability.EndHour,
           weekDay: 5,
@@ -102,7 +102,7 @@ export class AvailabilitySelectorComponent {
         });
       }
       if (availability.Saturday) {
-        this.timeTable.timeSlots.push({
+        this.timeSlots.push({
           startTime: availability.StartHour,
           endTime: availability.EndHour,
           weekDay: 6,
@@ -110,7 +110,7 @@ export class AvailabilitySelectorComponent {
         });
       }
       if (availability.Sunday) {
-        this.timeTable.timeSlots.push({
+        this.timeSlots.push({
           startTime: availability.StartHour,
           endTime: availability.EndHour,
           weekDay: 0,
@@ -130,19 +130,19 @@ export class AvailabilitySelectorComponent {
         false,
         Place.Both
       );
-      console.log('Display timetable', this.timeTable);
     }
+
+
   }
 
   removeAvailability(availability: Availability) {
     const index = this.availabilities.indexOf(availability);
     this.availabilities.splice(index, 1);
-    this.availabilitiesChange.emit(this.availabilities);
 
     //Manage timeslots removal
     if (availability.Monday) {
-      this.timeTable.timeSlots.splice(
-        this.timeTable.timeSlots.findIndex(
+      this.timeSlots.splice(
+        this.timeSlots.findIndex(
           (slot: TimeSlotRequest) =>
             slot.startTime === availability.StartHour &&
             slot.endTime === availability.EndHour &&
@@ -153,8 +153,8 @@ export class AvailabilitySelectorComponent {
       );
     }
     if (availability.Tuesday) {
-      this.timeTable.timeSlots.splice(
-        this.timeTable.timeSlots.findIndex(
+      this.timeSlots.splice(
+        this.timeSlots.findIndex(
           (slot: TimeSlotRequest) =>
             slot.startTime === availability.StartHour &&
             slot.endTime === availability.EndHour &&
@@ -165,8 +165,8 @@ export class AvailabilitySelectorComponent {
       );
     }
     if (availability.Wednesday) {
-      this.timeTable.timeSlots.splice(
-        this.timeTable.timeSlots.findIndex(
+      this.timeSlots.splice(
+        this.timeSlots.findIndex(
           (slot: TimeSlotRequest) =>
             slot.startTime === availability.StartHour &&
             slot.endTime === availability.EndHour &&
@@ -177,8 +177,8 @@ export class AvailabilitySelectorComponent {
       );
     }
     if (availability.Thursday) {
-      this.timeTable.timeSlots.splice(
-        this.timeTable.timeSlots.findIndex(
+      this.timeSlots.splice(
+        this.timeSlots.findIndex(
           (slot: TimeSlotRequest) =>
             slot.startTime === availability.StartHour &&
             slot.endTime === availability.EndHour &&
@@ -189,8 +189,8 @@ export class AvailabilitySelectorComponent {
       );
     }
     if (availability.Friday) {
-      this.timeTable.timeSlots.splice(
-        this.timeTable.timeSlots.findIndex(
+      this.timeSlots.splice(
+        this.timeSlots.findIndex(
           (slot: TimeSlotRequest) =>
             slot.startTime === availability.StartHour &&
             slot.endTime === availability.EndHour &&
@@ -201,8 +201,8 @@ export class AvailabilitySelectorComponent {
       );
     }
     if (availability.Saturday) {
-      this.timeTable.timeSlots.splice(
-        this.timeTable.timeSlots.findIndex(
+      this.timeSlots.splice(
+        this.timeSlots.findIndex(
           (slot: TimeSlotRequest) =>
             slot.startTime === availability.StartHour &&
             slot.endTime === availability.EndHour &&
@@ -213,8 +213,8 @@ export class AvailabilitySelectorComponent {
       );
     }
     if (availability.Sunday) {
-      this.timeTable.timeSlots.splice(
-        this.timeTable.timeSlots.findIndex(
+      this.timeSlots.splice(
+        this.timeSlots.findIndex(
           (slot: TimeSlotRequest) =>
             slot.startTime === availability.StartHour &&
             slot.endTime === availability.EndHour &&
@@ -224,7 +224,6 @@ export class AvailabilitySelectorComponent {
         1
       );
     }
-    console.log('Display timetable', this.timeTable);
   }
 
   constructor() {
