@@ -16,7 +16,7 @@ export class CalendarPage {
 
     today = new Date().toISOString();
 
-    reservationResponse1: ReservationResponse = {
+    /*reservationResponse1: ReservationResponse = {
         id: 'SignorPiomaggio',
         professional: {
             profilePicture: 'lollo',
@@ -92,16 +92,16 @@ export class CalendarPage {
         start: '18:08',
         end: '18:38',
         status: ReservationStatus.Declined
-    }
+    }*/
 
 
 
     // Generate sample reservations
     allReservations: ReservationResponse[] = [
-        this.reservationResponse1,
+        /*this.reservationResponse1,
         this.reservationResponse2,
         this.reservationResponse1,
-        this.reservationResponse2,
+        this.reservationResponse2,*/
     ];
 
     // Filtered reservations
