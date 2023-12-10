@@ -117,7 +117,7 @@ export class AvailabilitySelectorComponent {
           isAvailable: true,
         });
       }
-  
+
       this.newAvailability = new Availability(
         '08:00',
         '09:00',
