@@ -46,9 +46,9 @@
     <ion-item>
       <ion-select [multiple]="false" label="Presso" labelPlacement="floating" [(ngModel)]="newAvailability.Place"
         required>
-        <ion-select-option [value]="0">Studio</ion-select-option>
-        <ion-select-option [value]="1">Domicilio</ion-select-option>
-        <ion-select-option [value]="2">Studio/Domicilio</ion-select-option>
+        <ion-select-option [value]="'Studio'">Studio</ion-select-option>
+        <ion-select-option [value]="'Domicilio'">Domicilio</ion-select-option>
+        <ion-select-option [value]="'Studio/Domicilio'">Studio/Domicilio</ion-select-option>
       </ion-select>
     </ion-item>
 
