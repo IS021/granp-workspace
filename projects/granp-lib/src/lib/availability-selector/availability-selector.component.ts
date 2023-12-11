@@ -300,8 +300,9 @@ export class AvailabilitySelectorComponent {
 
   constructor() {
     addIcons({ trashOutline });
-
-    this.convertTimeSlotsToAvailabilities();
   }
 
+  ngOnInit(): void {
+    this.convertTimeSlotsToAvailabilities();
+  }
 }
