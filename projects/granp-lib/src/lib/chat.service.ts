@@ -28,6 +28,7 @@ export interface ChatMessageResponse {
 
 export interface ChatInfoResponse {
     id: string;
+    profileId: string;
     profilePicture: string;
     name: string;
     lastMessage: string;
@@ -175,7 +176,9 @@ export class ChatService {
             // Pass the params as the third argument of the post method
             this.http.post<string>(this.apiUrl + '/create', null, { params: params }).subscribe({
                 next: (chatId) => {
-                    resolve(chatId);
+                    this.refreshChat(chatId).then(() => {
+                        resolve(chatId);
+                    });
                 },
                 error: (error) => {
                     reject(error);
@@ -184,9 +187,9 @@ export class ChatService {
         });
     }
 
-    private refreshChat(chatId: string) {
+    private refreshChat(chatId: string): Promise<void> {
         // If chat doesn't exist, refresh chat list
-        this.refreshChatList().then(() => {
+        return this.refreshChatList().then(() => {
             // Then refresh chat messages
             this.refreshChatMessages(chatId).then(() => {
                 this.chats.next(this.chatDict);

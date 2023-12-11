@@ -11,7 +11,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-note *ngIf="chatService.chatDict.size === 0" class="no-messages">Nessuna chat</ion-note>
+  <ion-note class="no-message" *ngIf="chatService.chatDict.size === 0">Nessuna chat</ion-note>
   
   <ion-list>
     <ion-item *ngFor="let chat of chatService.chatDict.values()" button detail="false" (click)="openChat(chat.id)">

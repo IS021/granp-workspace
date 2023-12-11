@@ -13,6 +13,7 @@ export interface GranpLibConfig {
     logoutRedirectUri: string;
     role : string;
     mapboxAccessToken: string;
+    profileRedirectPath: string;
 }
 
 export const LibConfigService = new InjectionToken<GranpLibConfig>('LibConfig');

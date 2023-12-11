@@ -23,6 +23,7 @@ export class ChatListPage {
         addIcons({chevronForward});
 
         this.chatService.chats.subscribe(chats => {
+            console.log("Chat list updated", chats);
             this.cdRef.markForCheck();
         });
     }

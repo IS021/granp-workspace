@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Output, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonBackButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonItem, IonList, IonTitle, IonToolbar, IonButton, IonAvatar, IonNote, IonText, IonInput, IonTextarea } from '@ionic/angular/standalone';
+import { IonBackButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonItem, IonList, IonTitle, IonToolbar, IonButton, IonAvatar, IonNote, IonText, IonInput, IonTextarea, NavController } from '@ionic/angular/standalone';
 import { Chat, ChatService } from '../chat.service';
 
 import { addIcons } from 'ionicons';
@@ -9,6 +9,7 @@ import { send } from 'ionicons/icons';
 
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LibConfigService } from '../granp-lib.module';
 
 @Component({
   selector: 'gp-chat-page',
@@ -22,6 +23,8 @@ export class ChatPage {
     chatService = inject(ChatService);
     activatedRoute = inject(ActivatedRoute);
     cdRef = inject(ChangeDetectorRef);
+    navCtrl = inject(NavController);
+    config = inject(LibConfigService);
 
     chat?: Chat;
 
@@ -77,6 +80,12 @@ export class ChatPage {
 
         this.chatService.sendMessage(this.chatId, this.message);
         this.message = "";
+    }
+
+    profileClicked() {
+        if(this.config.profileRedirectPath !== "") {
+            this.navCtrl.navigateForward(this.config.profileRedirectPath + '/' + this.chat?.profileId);
+        }
     }
 
     getMessageClass(index: number): string {

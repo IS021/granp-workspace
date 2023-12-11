@@ -5,7 +5,7 @@
         </ion-buttons>
 
         <ion-title>
-            <div class="profile-bar">
+            <div class="profile-bar" (click)="profileClicked()">
                 <ion-avatar>
                     <img *ngIf="chat?.profilePicture !== null" [src]="chat?.profilePicture" />
                     <img *ngIf="chat?.profilePicture === null" src="/assets/default-profile-picture.png" />
