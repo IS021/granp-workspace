@@ -9,7 +9,6 @@ import { TimeSlotRequest } from '../../models/TimeSlotRequest';
 import { IonList, IonItem, IonLabel, IonDatetimeButton, IonModal, IonDatetime, IonCheckbox, IonSelect, IonSelectOption, IonButton, IonCard, IonText, IonIcon, IonCardContent} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { trashOutline } from 'ionicons/icons';
-import { th } from 'date-fns/locale';
 
 @Component({
   selector: 'gp-availability-selector',
@@ -39,46 +38,59 @@ export class AvailabilitySelectorComponent {
   @Input() timeSlots: TimeSlotRequest[] = [];
   @Output() timeSlotsChange: EventEmitter<TimeSlotRequest[]> = new EventEmitter<TimeSlotRequest[]>();
 
-  convertTimeSlotToAvailability(timeSlot: TimeSlotRequest): Availability {
-    const availability = new Availability(
-      timeSlot.startTime,
-      timeSlot.endTime,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      Place.Both
-    );
-    switch (timeSlot.weekDay) {
-      case 0:
-        availability.Sunday = true;
-        break;
-      case 1:
-        availability.Monday = true;
-        break;
-      case 2:
-        availability.Tuesday = true;
-        break;
-      case 3:
-        availability.Wednesday = true;
-        break;
-      case 4:
-        availability.Thursday = true;
-        break;
-      case 5:
-        availability.Friday = true;
-        break;
-      case 6:
-        availability.Saturday = true;
-        break;
-    }
-    return availability;
+  convertTimeSlotsToAvailabilities() {
+    this.availabilities = [];
+    const availabilityDict: { [key: string]: Availability } = {};
+  
+    this.timeSlots.forEach((slot: TimeSlotRequest) => {
+      const key = `${slot.startTime}-${slot.endTime}`;
+      if (!availabilityDict[key]) {
+        availabilityDict[key] = new Availability(
+          slot.startTime,
+          slot.endTime,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          Place.Both
+        );
+      }
+  
+      const availability = availabilityDict[key];
+  
+      switch (slot.weekDay) {
+        case 0:
+          availability.Sunday = true;
+          break;
+        case 1:
+          availability.Monday = true;
+          break;
+        case 2:
+          availability.Tuesday = true;
+          break;
+        case 3:
+          availability.Wednesday = true;
+          break;
+        case 4:
+          availability.Thursday = true;
+          break;
+        case 5:
+          availability.Friday = true;
+          break;
+        case 6:
+          availability.Saturday = true;
+          break;
+      }
+    });
+  
+    // Convert the dictionary values back to an array
+    this.availabilities = Object.values(availabilityDict);
   }
-
-
+  
+    
 
   setStartHour(event: any) {
     this.newAvailability.StartHour = event.detail.value;
@@ -287,9 +299,7 @@ export class AvailabilitySelectorComponent {
   constructor() {
     addIcons({ trashOutline });
 
-    for (const timeSlot of this.timeSlots) {
-      this.availabilities.push(this.convertTimeSlotToAvailability(timeSlot));
-    }
+    this.convertTimeSlotsToAvailabilities();
   }
 
 }
