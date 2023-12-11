@@ -3,7 +3,7 @@ import { Gender } from "./Gender";
 import { Profession } from "./Profession";
 
 export interface ProfessionalPublicResponse {
-
+    id: string;
     profilePicture: string;
     firstName: string;
     lastName: string;

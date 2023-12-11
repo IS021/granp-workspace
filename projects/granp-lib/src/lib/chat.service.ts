@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { LibConfigService } from './granp-lib.module';
 import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions, LogLevel } from '@microsoft/signalr'
@@ -163,6 +163,24 @@ export class ChatService {
                 }
             });
 
+        });
+    }
+
+    createChat(professionalId: string): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+    
+            // Create HttpParams object
+            let params = new HttpParams().set('professionalId', professionalId);
+    
+            // Pass the params as the third argument of the post method
+            this.http.post<string>(this.apiUrl + '/create', null, { params: params }).subscribe({
+                next: (chatId) => {
+                    resolve(chatId);
+                },
+                error: (error) => {
+                    reject(error);
+                }
+            });
         });
     }
 

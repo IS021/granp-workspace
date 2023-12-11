@@ -4,7 +4,6 @@ import { Address } from "./Address";
 import { Availability } from "./Availability";
 
 export class ProfessionalProfileRequest {
-
     firstName: string;
     lastName: string;
     gender?: Gender;
