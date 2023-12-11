@@ -1,4 +1,4 @@
-<ion-list>
+<ion-list *ngIf="editable">
     <ion-item>
       <ion-label>Ora di inizio</ion-label>
       <ion-datetime-button datetime="startHour" locale="it-IT"></ion-datetime-button>
@@ -70,7 +70,7 @@
         <br>
         <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
         <b>Presso:</b> {{checkPlace(availability.Place)}} <br>
-        <div [style.text-align]="'center'" [style.margin-top]="'0.5em'">
+        <div *ngIf="editable" [style.text-align]="'center'" [style.margin-top]="'0.5em'">
             <ion-icon name="trash-outline" slot="end" size="large" (click)="removeAvailability(availability)"></ion-icon>
         </div>
     </ion-card-content>

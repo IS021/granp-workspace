@@ -35,6 +35,8 @@ export class AvailabilitySelectorComponent {
 
   availabilities: Availability[] = [];
 
+  @Input() editable: boolean = true;
+
   @Input() timeSlots: TimeSlotRequest[] = [];
   @Output() timeSlotsChange: EventEmitter<TimeSlotRequest[]> = new EventEmitter<TimeSlotRequest[]>();
 
