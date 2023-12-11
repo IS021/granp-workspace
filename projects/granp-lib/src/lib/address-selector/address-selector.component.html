@@ -1,5 +1,5 @@
 <ion-item id="open-address-settings" [button]="true">
-    <ion-input label="Indirizzo" label-placement="floating" type="text" [ngModel]="address.street + ' ' + address.streetNumber + ', ' + address.city + ' ' + address.zipCode" readonly="true"
+    <ion-input label="Indirizzo" label-placement="floating" type="text" [ngModel]="addressString" readonly="true"
         required></ion-input>
 </ion-item>
 
@@ -18,13 +18,13 @@
                 <ion-input label="Via/Viale" label-placement="floating" type="text" [(ngModel)]="address.street" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="Numero civico" label-placement="floating" type="number" [(ngModel)]="address.streetNumber" required></ion-input>
+                <ion-input label="Numero civico" label-placement="floating" type="text" [(ngModel)]="address.streetNumber" required></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input label="Città" label-placement="floating" type="text" [(ngModel)]="address.city" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="CAP" label-placement="floating" type="number" [(ngModel)]="address.zipCode" required></ion-input>
+                <ion-input label="CAP" label-placement="floating" type="text" [(ngModel)]="address.zipCode" required></ion-input>
             </ion-item>
         </ion-list>
     </ng-template>

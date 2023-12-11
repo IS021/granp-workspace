@@ -7,7 +7,7 @@ export interface CustomerPublicResponse {
     elderFirstName: string;
     elderLastName: string;
     gender?: Gender;
-    elderAddress: Address;
+    elderAddress?: Address;
     elderBirthDate: string;
     elderAge: number;
     elderTelephoneNumber: string;

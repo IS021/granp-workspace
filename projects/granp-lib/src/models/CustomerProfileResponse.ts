@@ -11,7 +11,7 @@ export interface CustomerProfileResponse {
     profilePicture: string;
     elderFirstName: string;
     elderLastName: string;
-    elderAddress: Address;
+    elderAddress?: Address;
     elderBirthDate: string;
     elderPhoneNumber: string;
     elderDescription: string;  

@@ -16,7 +16,7 @@ export interface ProfessionalPublicResponse {
     description: string;
 
     profession: Profession;
-    address: Address;
+    address?: Address;
     isVerified: boolean;
 
     hourlyRate: number;

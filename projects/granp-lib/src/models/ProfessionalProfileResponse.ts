@@ -12,7 +12,7 @@ export interface ProfessionalProfileResponse {
 
     description: string;
     profession : Profession;
-    address: Address;
+    address?: Address;
     birthDate: string;
     idCardNumber: string;
     isVerified: boolean; 

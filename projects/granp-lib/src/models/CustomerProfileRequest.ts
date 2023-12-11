@@ -13,7 +13,7 @@ export class CustomerProfileRequest {
 
     elderFirstName: string;
     elderLastName: string;
-    elderAddress: Address;
+    elderAddress?: Address;
     elderBirthDate: string;
     elderPhoneNumber: string;
     elderDescription: string;
@@ -27,7 +27,6 @@ export class CustomerProfileRequest {
         this.profilePicture = '';
         this.elderFirstName = '';
         this.elderLastName = '';
-        this.elderAddress = new Address();
         this.elderBirthDate = '';
         this.elderPhoneNumber = '';
         this.elderDescription = '';

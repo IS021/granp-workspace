@@ -13,7 +13,7 @@ export class ProfessionalProfileRequest {
     profilePicture: string;
     description: string;
     profession: Profession;
-    address: Address;
+    address?: Address;
     birthDate: string;
     idCardNumber: string;
     hourlyRate?: number;
@@ -29,7 +29,6 @@ export class ProfessionalProfileRequest {
         this.profilePicture = '';
         this.description = '';
         this.profession = Profession.Other;
-        this.address = new Address();
         this.birthDate = '';
         this.idCardNumber = '';
         this.longTimeJob = false;

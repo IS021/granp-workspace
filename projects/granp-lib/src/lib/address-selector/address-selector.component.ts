@@ -23,7 +23,12 @@ export class AddressSelectorComponent {
     cdRef = inject(ChangeDetectorRef);
     alertController = inject(AlertController);
 
-    addressString: string = '';
+    addressString: string = "";
+
+    ngOnInit() {
+        if (this.address.street != "" && this.address.streetNumber != "" && this.address.city != "" && this.address.zipCode != "")
+            this.addressString = `${this.address.street} ${this.address.streetNumber}, ${this.address.city}, ${this.address.zipCode}`;
+    }
 
     submitElderAddress() {
         this.addressString = `${this.address.street} ${this.address.streetNumber}, ${this.address.city}, ${this.address.zipCode}`;
