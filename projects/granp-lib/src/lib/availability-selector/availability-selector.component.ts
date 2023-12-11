@@ -9,6 +9,7 @@ import { TimeSlotRequest } from '../../models/TimeSlotRequest';
 import { IonList, IonItem, IonLabel, IonDatetimeButton, IonModal, IonDatetime, IonCheckbox, IonSelect, IonSelectOption, IonButton, IonCard, IonText, IonIcon, IonCardContent} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { trashOutline } from 'ionicons/icons';
+import { th } from 'date-fns/locale';
 
 @Component({
   selector: 'gp-availability-selector',
@@ -19,7 +20,7 @@ import { trashOutline } from 'ionicons/icons';
 })
 export class AvailabilitySelectorComponent {
 
-  timeSlots: TimeSlotRequest[] = []
+  // timeSlots: TimeSlotRequest[] = []
   newAvailability: Availability = new Availability(
     '08:00',
     '09:00',
@@ -35,7 +36,49 @@ export class AvailabilitySelectorComponent {
 
   availabilities: Availability[] = [];
 
+  @Input() timeSlots: TimeSlotRequest[] = [];
   @Output() timeSlotsChange: EventEmitter<TimeSlotRequest[]> = new EventEmitter<TimeSlotRequest[]>();
+
+  convertTimeSlotToAvailability(timeSlot: TimeSlotRequest): Availability {
+    const availability = new Availability(
+      timeSlot.startTime,
+      timeSlot.endTime,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      Place.Both
+    );
+    switch (timeSlot.weekDay) {
+      case 0:
+        availability.Sunday = true;
+        break;
+      case 1:
+        availability.Monday = true;
+        break;
+      case 2:
+        availability.Tuesday = true;
+        break;
+      case 3:
+        availability.Wednesday = true;
+        break;
+      case 4:
+        availability.Thursday = true;
+        break;
+      case 5:
+        availability.Friday = true;
+        break;
+      case 6:
+        availability.Saturday = true;
+        break;
+    }
+    return availability;
+  }
+
+
 
   setStartHour(event: any) {
     this.newAvailability.StartHour = event.detail.value;
@@ -132,6 +175,7 @@ export class AvailabilitySelectorComponent {
       );
     }
 
+    this.timeSlotsChange.emit(this.timeSlots);
 
   }
 
@@ -224,10 +268,17 @@ export class AvailabilitySelectorComponent {
         1
       );
     }
+
+    this.timeSlotsChange.emit(this.timeSlots);
+
   }
 
   constructor() {
     addIcons({ trashOutline });
+
+    for (const timeSlot of this.timeSlots) {
+      this.availabilities.push(this.convertTimeSlotToAvailability(timeSlot));
+    }
   }
 
 }
