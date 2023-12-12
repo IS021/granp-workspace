@@ -1,8 +1,11 @@
 import { Address } from './Address';
 import { Gender } from './Gender'
 import { Profession } from './Profession';
+import { TimeTableResponse } from './TimeTableResponse';
 
 export interface ProfessionalProfileResponse {
+    id: string;
+
     firstName: string;
     lastName: string;
     gender?: Gender;
@@ -21,4 +24,6 @@ export interface ProfessionalProfileResponse {
     maxDistance: number;
     longTimeJob: boolean;
     shortTimeJob: boolean;
+
+    timeTable?: TimeTableResponse[];
 }

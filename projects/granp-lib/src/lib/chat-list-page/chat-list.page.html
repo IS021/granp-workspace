@@ -21,7 +21,7 @@
       </ion-avatar>
       <ion-label>
         <strong>{{chat.name}}</strong>
-        <ion-note color="medium" class="ion-text-wrap two-line-note">
+        <ion-note color="medium" [style.text-align]="'left'" class="ion-text-wrap two-line-note">
             {{chat.lastMessage}}
         </ion-note>
       </ion-label>

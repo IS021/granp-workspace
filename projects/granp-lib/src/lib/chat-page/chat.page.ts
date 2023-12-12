@@ -84,7 +84,11 @@ export class ChatPage {
 
     profileClicked() {
         if(this.config.profileRedirectPath !== "") {
-            this.navCtrl.navigateForward(this.config.profileRedirectPath + '/' + this.chat?.profileId);
+            this.navCtrl.navigateForward(this.config.profileRedirectPath, {
+                queryParams: {
+                    id: this.chat?.profileId
+                }
+            });
         }
     }
 

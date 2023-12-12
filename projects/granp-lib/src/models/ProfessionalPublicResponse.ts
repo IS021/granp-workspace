@@ -1,6 +1,7 @@
 import { Address } from "./Address";
 import { Gender } from "./Gender";
 import { Profession } from "./Profession";
+import { TimeTableResponse } from "./TimeTableResponse";
 
 export interface ProfessionalPublicResponse {
     id: string;
@@ -22,6 +23,8 @@ export interface ProfessionalPublicResponse {
     hourlyRate: number;
     longTimeJob: boolean;
     shortTimeJob: boolean;
+
+    timeTable?: TimeTableResponse[];
 
 }
 
