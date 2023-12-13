@@ -14,6 +14,9 @@ export class Availability {
     Saturday: boolean;
     Sunday: boolean;
     Place: Place;
+
+    [key: string]: any;
+
   
     // Constructor
     constructor(StartHour: string, EndHour: string, Monday: boolean, Tuesday: boolean, Wednesday: boolean, Thursay: boolean, Friday: boolean, Saturday: boolean, Sunday: boolean, Place: Place) {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Availability } from '../../models/Availability';
 import { Place } from '../../models/Place';
@@ -6,19 +6,50 @@ import { FormsModule } from '@angular/forms';
 import { TimeTableRequest } from '../../models/TimeTableRequest';
 import { TimeSlotRequest } from '../../models/TimeSlotRequest';
 
-import { IonList, IonItem, IonLabel, IonDatetimeButton, IonModal, IonDatetime, IonCheckbox, IonSelect, IonSelectOption, IonButton, IonCard, IonText, IonIcon, IonCardContent} from '@ionic/angular/standalone';
+import {
+  IonList,
+  IonItem,
+  IonLabel,
+  IonDatetimeButton,
+  IonModal,
+  IonDatetime,
+  IonCheckbox,
+  IonSelect,
+  IonSelectOption,
+  IonButton,
+  IonCard,
+  IonText,
+  IonIcon,
+  IonCardContent,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { trashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'gp-availability-selector',
   standalone: true,
-  imports: [CommonModule, FormsModule, IonList, IonItem, IonLabel, IonDatetimeButton, IonModal, IonDatetime, IonCheckbox, IonSelect, IonSelectOption, IonButton, IonCard, IonText, IonIcon, IonCardContent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonDatetimeButton,
+    IonModal,
+    IonDatetime,
+    IonCheckbox,
+    IonSelect,
+    IonSelectOption,
+    IonButton,
+    IonCard,
+    IonText,
+    IonIcon,
+    IonCardContent,
+  ],
   templateUrl: './availability-selector.component.html',
-  styleUrls: ['./availability-selector.component.css']
+  styleUrls: ['./availability-selector.component.css'],
 })
 export class AvailabilitySelectorComponent {
-
   // timeSlots: TimeSlotRequest[] = []
   newAvailability: Availability = new Availability(
     '08:00',
@@ -38,12 +69,15 @@ export class AvailabilitySelectorComponent {
   @Input() editable: boolean = true;
 
   @Input() timeSlots: TimeSlotRequest[] = [];
-  @Output() timeSlotsChange: EventEmitter<TimeSlotRequest[]> = new EventEmitter<TimeSlotRequest[]>();
+  @Output() timeSlotsChange: EventEmitter<TimeSlotRequest[]> = new EventEmitter<
+    TimeSlotRequest[]
+  >();
+
 
   convertTimeSlotsToAvailabilities() {
     this.availabilities = [];
     const availabilityDict: { [key: string]: Availability } = {};
-  
+
     this.timeSlots.forEach((slot: TimeSlotRequest) => {
       const key = `${slot.startTime}-${slot.endTime}`;
       if (!availabilityDict[key]) {
@@ -60,9 +94,9 @@ export class AvailabilitySelectorComponent {
           Place.Both
         );
       }
-  
+
       const availability = availabilityDict[key];
-  
+
       switch (slot.weekDay) {
         case 0:
           availability.Sunday = true;
@@ -87,19 +121,20 @@ export class AvailabilitySelectorComponent {
           break;
       }
     });
-  
+
     // Convert the dictionary values back to an array
     this.availabilities = Object.values(availabilityDict);
   }
-  
-    
 
+  
   setStartHour(event: any) {
     this.newAvailability.StartHour = event.detail.value;
   }
 
+  
   setEndHour(event: any) {
     this.newAvailability.EndHour = event.detail.value;
+
   }
 
   /* Availability management */
@@ -118,62 +153,22 @@ export class AvailabilitySelectorComponent {
       this.availabilities.push(availability);
 
       //Manage timeslots addition
-      if (availability.Monday) {
-        this.timeSlots.push({
-          startTime: availability.StartHour,
-          endTime: availability.EndHour,
-          weekDay: 1,
-          isAvailable: true,
-        });
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+      for (let i=0; i<days.length; i++) {
+        if (availability[days[i]]) {
+          const startHourFormatted : string = availability.StartHour.split(':')[0] + ':' + availability.StartHour.split(':')[1] + ':00';
+          const endHourFormatted : string = availability.EndHour.split(':')[0] + ':' + availability.EndHour.split(':')[1] + ':00';
+         
+          this.timeSlots.push({
+            startTime: startHourFormatted,
+            endTime: endHourFormatted,
+            weekDay: i,
+            isAvailable: true
+          }
+        );
       }
-      if (availability.Tuesday) {
-        this.timeSlots.push({
-          startTime: availability.StartHour,
-          endTime: availability.EndHour,
-          weekDay: 1,
-          isAvailable: true,
-        });
-      }
-      if (availability.Wednesday) {
-        this.timeSlots.push({
-          startTime: availability.StartHour,
-          endTime: availability.EndHour,
-          weekDay: 3,
-          isAvailable: true,
-        });
-      }
-      if (availability.Thursday) {
-        this.timeSlots.push({
-          startTime: availability.StartHour,
-          endTime: availability.EndHour,
-          weekDay: 4,
-          isAvailable: true,
-        });
-      }
-      if (availability.Friday) {
-        this.timeSlots.push({
-          startTime: availability.StartHour,
-          endTime: availability.EndHour,
-          weekDay: 5,
-          isAvailable: true,
-        });
-      }
-      if (availability.Saturday) {
-        this.timeSlots.push({
-          startTime: availability.StartHour,
-          endTime: availability.EndHour,
-          weekDay: 6,
-          isAvailable: true,
-        });
-      }
-      if (availability.Sunday) {
-        this.timeSlots.push({
-          startTime: availability.StartHour,
-          endTime: availability.EndHour,
-          weekDay: 0,
-          isAvailable: true,
-        });
-      }
+    };
 
       this.newAvailability = new Availability(
         '08:00',
@@ -190,7 +185,6 @@ export class AvailabilitySelectorComponent {
     }
 
     this.timeSlotsChange.emit(this.timeSlots);
-
   }
 
   removeAvailability(availability: Availability) {
@@ -198,93 +192,24 @@ export class AvailabilitySelectorComponent {
     this.availabilities.splice(index, 1);
 
     //Manage timeslots removal
-    if (availability.Monday) {
-      this.timeSlots.splice(
-        this.timeSlots.findIndex(
-          (slot: TimeSlotRequest) =>
-            slot.startTime === availability.StartHour &&
-            slot.endTime === availability.EndHour &&
-            slot.weekDay === 1 &&
-            slot.isAvailable === true
-        ),
-        1
-      );
-    }
-    if (availability.Tuesday) {
-      this.timeSlots.splice(
-        this.timeSlots.findIndex(
-          (slot: TimeSlotRequest) =>
-            slot.startTime === availability.StartHour &&
-            slot.endTime === availability.EndHour &&
-            slot.weekDay === 2 &&
-            slot.isAvailable === true
-        ),
-        1
-      );
-    }
-    if (availability.Wednesday) {
-      this.timeSlots.splice(
-        this.timeSlots.findIndex(
-          (slot: TimeSlotRequest) =>
-            slot.startTime === availability.StartHour &&
-            slot.endTime === availability.EndHour &&
-            slot.weekDay === 3 &&
-            slot.isAvailable === true
-        ),
-        1
-      );
-    }
-    if (availability.Thursday) {
-      this.timeSlots.splice(
-        this.timeSlots.findIndex(
-          (slot: TimeSlotRequest) =>
-            slot.startTime === availability.StartHour &&
-            slot.endTime === availability.EndHour &&
-            slot.weekDay === 4 &&
-            slot.isAvailable === true
-        ),
-        1
-      );
-    }
-    if (availability.Friday) {
-      this.timeSlots.splice(
-        this.timeSlots.findIndex(
-          (slot: TimeSlotRequest) =>
-            slot.startTime === availability.StartHour &&
-            slot.endTime === availability.EndHour &&
-            slot.weekDay === 5 &&
-            slot.isAvailable === true
-        ),
-        1
-      );
-    }
-    if (availability.Saturday) {
-      this.timeSlots.splice(
-        this.timeSlots.findIndex(
-          (slot: TimeSlotRequest) =>
-            slot.startTime === availability.StartHour &&
-            slot.endTime === availability.EndHour &&
-            slot.weekDay === 6 &&
-            slot.isAvailable === true
-        ),
-        1
-      );
-    }
-    if (availability.Sunday) {
-      this.timeSlots.splice(
-        this.timeSlots.findIndex(
-          (slot: TimeSlotRequest) =>
-            slot.startTime === availability.StartHour &&
-            slot.endTime === availability.EndHour &&
-            slot.weekDay === 0 &&
-            slot.isAvailable === true
-        ),
-        1
-      );
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    for (let i = 0; i< days.length; i++) {
+      if (availability[days[i]]) {
+        this.timeSlots.splice(
+          this.timeSlots.findIndex(
+            (slot: TimeSlotRequest) =>
+              slot.startTime === availability.StartHour &&
+              slot.endTime === availability.EndHour &&
+              slot.weekDay === i &&
+              slot.isAvailable === true
+          ),
+          1
+        );
+      }
     }
 
     this.timeSlotsChange.emit(this.timeSlots);
-
   }
 
   checkPlace(place: Place) {
