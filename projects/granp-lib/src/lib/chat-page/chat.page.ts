@@ -56,7 +56,7 @@ export class ChatPage {
     }
 
     scrollToBottom() {
-        this.content.scrollToBottom(100);
+        // this.content.scrollToBottom(100);
     }
 
     ionViewWillEnter() {
@@ -103,11 +103,11 @@ export class ChatPage {
         }
 
         const message = this.chat.messages[index];
-        const nextMessage = this.chat.messages[index + 1];
+        const previousMessage = this.chat.messages[index - 1];
 
         var classList: string[] = [];
 
-        if (nextMessage && nextMessage.sender === message.sender) {
+        if (previousMessage && previousMessage.sender === message.sender) {
             classList.push('consecutive-message');
         }
       

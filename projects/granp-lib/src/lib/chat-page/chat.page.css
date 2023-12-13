@@ -34,17 +34,16 @@ ion-avatar {
 
 .chat-list {
   padding-top: 0.5em;
+  display: flex;
+  flex-direction: column-reverse;
+  height: calc(100% - var(--offset-bottom));
+  overflow: auto;
 }
 
 .profile-bar {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-ion-item {
-  --padding-start: 0.5em;
-  --inner-padding-end: 0.5em;
 }
 
 .message {
@@ -118,4 +117,19 @@ ion-note {
 
 .keyboard-open .footer-content {
   transform: translateY(-100px);
+}
+
+.message-line {
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    display: flex;
+    flex-direction: row;
+}
+
+.end {
+    justify-content: end;
+}
+
+.start {
+    justify-content: start;
 }

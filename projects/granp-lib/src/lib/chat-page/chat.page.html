@@ -16,17 +16,19 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-list lines="none" class="chat-list">
-        <ion-item *ngFor="let message of chat?.messages, index as i">
-            <div [classList]="getMessageClass(i) + ' message'" [slot]="message.sender === 'user' ? 'end' : 'start'">
+<ion-content [scrollY]="false">
+    <div lines="none" class="chat-list">
+        <div *ngFor="let message of chat?.messages?.reverse(), index as i"
+            [class]="'message-line ' + (message.sender === 'user' ? 'end' : 'start')"
+        >
+            <div [class]="'message ' + getMessageClass(i)">
                 <ion-text>{{ message.content }}</ion-text>
                 <ion-note [color]="message.sender === 'user' ? 'dark' : 'medium'">
                     {{ message.time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}
                 </ion-note>
             </div>
-        </ion-item>
-    </ion-list>
+        </div>
+    </div>
 </ion-content>
 
 <ion-footer>
