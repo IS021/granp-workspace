@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LibConfigService } from '../granp-lib.module';
 
+
+
 @Component({
   selector: 'gp-chat-page',
   standalone: true,
@@ -25,6 +27,7 @@ export class ChatPage {
     cdRef = inject(ChangeDetectorRef);
     navCtrl = inject(NavController);
     config = inject(LibConfigService);
+    //keyboard = inject(Keybo)
 
     chat?: Chat;
 
@@ -73,8 +76,10 @@ export class ChatPage {
         this.chatSubscription?.unsubscribe();
     }
 
-    sendMessage() {
-        if (this.message === "") {
+    sendMessage(event: Event) {
+        event.preventDefault();
+
+        if (this.message == "" || this.message.trim() == "" || this.message == undefined) {
             return;
         }
 

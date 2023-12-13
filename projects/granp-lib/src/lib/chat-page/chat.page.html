@@ -30,11 +30,11 @@
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
+    <ion-toolbar  class="footer-content">
         <ion-textarea mode="ios" placeholder="Scrivi un messaggio..." [(ngModel)]="message"
-            (keyup.enter)="sendMessage()" maxlength="256" [autoGrow]="true" [rows]="1"></ion-textarea>
+            (keyup.enter)="sendMessage($event)" maxlength="256" [autoGrow]="true" [rows]="1"></ion-textarea>
         <ion-buttons slot="end">
-            <ion-button (click)="sendMessage()">
+            <ion-button (click)="sendMessage($event)">
                 <ion-icon slot="icon-only" name="send"></ion-icon>
             </ion-button>
         </ion-buttons>

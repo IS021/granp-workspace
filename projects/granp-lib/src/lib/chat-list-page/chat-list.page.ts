@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@
 import { NgFor, NgIf } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { chevronForward } from 'ionicons/icons';
-import { IonAvatar, IonContent, IonHeader, IonItem, IonLabel, IonList, IonNote, IonTitle, IonToolbar, NavController } from '@ionic/angular/standalone';
+import { IonAvatar, IonContent, IonHeader, IonItem, IonLabel, IonList, IonNote, IonTitle, IonToolbar, LoadingController, NavController } from '@ionic/angular/standalone';
 
 import { ChatService, Chat } from '../chat.service';
 
@@ -18,9 +18,12 @@ export class ChatListPage {
     chatService = inject(ChatService);
     navCtrl = inject(NavController);
     cdRef = inject(ChangeDetectorRef);
+    loadingCtrl = inject(LoadingController);
+
+    loading?: HTMLIonLoadingElement;
 
     constructor() {
-        addIcons({chevronForward});
+        addIcons({ chevronForward });
 
         this.chatService.chats.subscribe(chats => {
             console.log("Chat list updated", chats);
@@ -30,7 +33,10 @@ export class ChatListPage {
 
     // Every time the page is entered, refresh the chat list
     ionViewWillEnter() {
+        this.showLoading();
+
         this.chatService.refreshChatList().then(() => {
+            this.loading?.dismiss();
             console.log("Chat list refreshed");
             this.cdRef.markForCheck();
         });
@@ -38,6 +44,14 @@ export class ChatListPage {
 
     openChat(id: string) {
         this.navCtrl.navigateForward(['chat', id]);
+    }
+
+    async showLoading() {
+        this.loading = await this.loadingCtrl.create({
+            message: 'Carico Chat...'
+        });
+
+        this.loading.present();
     }
 
 }

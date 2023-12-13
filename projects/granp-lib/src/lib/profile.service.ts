@@ -15,18 +15,54 @@ export class ProfileService {
     constructor() { }
 
     public isComplete(): Promise<boolean> {
-        return lastValueFrom(this.http.get<boolean>(this.profileUrl + '/is-complete'));
+        return new Promise<boolean>((resolve, reject) => {
+            this.http.get<boolean>(this.profileUrl + '/is-complete').subscribe({
+                next: (result) => {
+                    resolve(result);
+                },
+                error: (error) => {
+                    reject(error);
+                }
+            });
+        });
     }
 
     public completeProfile(profile: any): Promise<void> {
-        return lastValueFrom(this.http.post<void>(this.profileUrl + '/complete', profile));
+        return new Promise<void>((resolve, reject) => {
+            this.http.post<void>(this.profileUrl + '/complete', profile).subscribe({
+                next: (result) => {
+                    resolve(result);
+                },
+                error: (error) => {
+                    reject(error);
+                }
+            });
+        });
     }
 
     public getProfile<T>(): Promise<any> {
-        return lastValueFrom(this.http.get<T>(this.profileUrl + '/get'));
+        return new Promise<any>((resolve, reject) => {
+            this.http.get<any>(this.profileUrl + '/get').subscribe({
+                next: (result) => {
+                    resolve(result);
+                },
+                error: (error) => {
+                    reject(error);
+                }
+            });
+        });
     }
 
     public updateProfile(profile: any): Promise<void> {
-        return lastValueFrom(this.http.put<void>(this.profileUrl + '/update', profile));
+        return new Promise<void>((resolve, reject) => {
+            this.http.put<void>(this.profileUrl + '/update', profile).subscribe({
+                next: (result) => {
+                    resolve(result);
+                },
+                error: (error) => {
+                    reject(error);
+                }
+            });
+        });
     }
 }

@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { LibConfigService } from './granp-lib.module';
-import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions, LogLevel } from '@microsoft/signalr'
+import { HubConnection, HubConnectionBuilder, IHttpConnectionOptions, LogLevel, HttpTransportType } from '@microsoft/signalr'
 import { BehaviorSubject, Observable, from, lastValueFrom } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '@auth0/auth0-angular';
 
 export interface SignalRMessage {
+    id: string;
     chatId: string;
     content: string;
     time: Date;
@@ -32,6 +33,7 @@ export interface ChatInfoResponse {
     profilePicture: string;
     name: string;
     lastMessage: string;
+    lastMessageId?: string;
     time: Date;
     unreadMessages: number;
 }
@@ -206,6 +208,10 @@ export class ChatService {
         this.addListeners();
     }
 
+    public disconnect() {
+        this.hubConnection.stop();
+    }
+
     private getConnection(): HubConnection {
         return new HubConnectionBuilder()
             .withUrl(this.connectionUrl, {
@@ -237,6 +243,11 @@ export class ChatService {
             // Add message to chatDict
             const chat = this.chatDict.get(message.chatId);
             if (chat) {
+                if (message.id == chat.lastMessageId) {
+                    console.log("Message already present in chat");
+                    return;
+                }
+    
                 chat.messages.push({
                     sender: 'other',
                     content: message.content,
@@ -248,9 +259,12 @@ export class ChatService {
                 chat.time = new Date(message.time);
 
                 chat.unreadMessages += 1;
+                chat.lastMessageId = message.id;
 
                 this.chatDict.set(message.chatId, chat);
                 this.chats.next(this.chatDict);
+
+                console.log("Chat updated", chat.id);
             } else {
                 this.refreshChat(message.chatId);
             }

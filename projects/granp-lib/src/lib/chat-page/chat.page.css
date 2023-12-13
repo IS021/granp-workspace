@@ -1,111 +1,121 @@
 ion-textarea {
-    --padding-top: 0.8em;
-    --padding-bottom: 0em;
-    --padding-start: 0.5em;
-    --padding-end: 0.5em;
+  --padding-top: 0.8em;
+  --padding-bottom: 0em;
+  --padding-start: 0.5em;
+  --padding-end: 0.5em;
 }
 
 .ios ion-toolbar {
-    //padding-top: 0.4em !important;
-    padding-bottom: 0.4em !important;
+  //padding-top: 0.4em !important;
+  padding-bottom: 0.4em !important;
 }
 
 ion-avatar {
-    height: 2.4em;
-    width: 2.4em;
+  height: 2.4em;
+  width: 2.4em;
 }
 
 .ios ion-title {
-    padding-left: 2.5em;
-    padding-inline-end: 1em;
+  padding-left: 2.5em;
+  padding-inline-end: 1em;
 }
 
 .md ion-title {
-    padding-inline: 0;
+  padding-inline: 0;
 }
 
 .title {
-    margin-left: 0.5em;
-    font-size: 1.1em;
-    font-weight: bold;
-    display: flex;
-    text-overflow: ellipsis;
+  margin-left: 0.5em;
+  font-size: 1.1em;
+  font-weight: bold;
+  display: flex;
+  text-overflow: ellipsis;
 }
 
 .chat-list {
-    padding-top: 0.5em;
+  padding-top: 0.5em;
 }
 
 .profile-bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 ion-item {
-    --padding-start: 0.5em;
-    --inner-padding-end: 0.5em;
+  --padding-start: 0.5em;
+  --inner-padding-end: 0.5em;
 }
 
 .message {
-    margin: 0 0.1em 0.8em 0.1em;
-    padding: 0.8em 1em 0.8em 1em;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: flex-end;
+  margin: 0 0.1em 0.8em 0.1em;
+  padding: 0.8em 1em 0.8em 1em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
 
-    max-width: 85%;
+  max-width: 85%;
 }
 
 ion-text {
-    overflow: hidden;
-    overflow-wrap: break-word;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 ion-note {
-    margin: 0.3em 0 -0.3em 1em;
-    font-size: 0.8em;
-    align-self: flex-end;
+  margin: 0.3em 0 -0.3em 1em;
+  font-size: 0.8em;
+  align-self: flex-end;
 }
 
 .sent-message {
-    background: var(--ion-color-primary);
+  background: var(--ion-color-primary);
 
+  color: var(--ion-color-primary-contrast);
+
+  ion-note {
     color: var(--ion-color-primary-contrast);
-
-    ion-note {
-        color: var(--ion-color-primary-contrast);
-    }
+  }
 }
 
 .ios .sent-message {
-    border-radius: 1em 1em 0 1em;
+  border-radius: 1em 1em 0 1em;
 }
 
 .md .sent-message {
-    border-radius: 0.5em;
+  border-radius: 0.5em;
 }
 
 .received-message {
-    background: var(--ion-color-light);
+  background: var(--ion-color-light);
 }
 
 .ios .received-message {
-    border-radius: 1em 1em 1em 0;
+  border-radius: 1em 1em 1em 0;
 }
 
 .md .received-message {
-    border-radius: 0.5em;
+  border-radius: 0.5em;
 }
 
 .ios .consecutive-message {
-    margin-bottom: 0.2em !important;
-    border-radius: 0.8em !important;
+  margin-bottom: 0.2em !important;
+  border-radius: 0.8em !important;
 }
 
 .md .consecutive-message {
-    margin-bottom: 0.2em !important;
-    border-radius: 0.5em !important;
+  margin-bottom: 0.2em !important;
+  border-radius: 0.5em !important;
+}
+
+.footer-content {
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(0);
+  
+}
+
+.keyboard-open .footer-content {
+  transform: translateY(-100px);
 }
