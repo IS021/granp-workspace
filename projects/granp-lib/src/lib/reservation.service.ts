@@ -11,7 +11,7 @@ export class ReservationService {
     http = inject(HttpClient);
     config = inject(LibConfigService);
 
-    private apiUrl = new URL('./reservation', this.config.apiServerUrl).href;
+    private apiUrl = new URL('./reservations', this.config.apiServerUrl).href;
 
     request(reservationRequest: ReservationRequest): Promise<void> {
         return new Promise<void>((resolve, reject) => {

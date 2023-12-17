@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonLabel } from '@ionic/angular/standalone';
 
 import { ReservationResponse } from '../../models';
+import { ReservationService } from '../reservation.service';
 
 @Component({
   selector: 'gp-reservation-card',
@@ -12,6 +13,8 @@ import { ReservationResponse } from '../../models';
   imports: [CommonModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonLabel],
 })
 export class ReservationCardComponent {
+
+    reservationService = inject(ReservationService);
 
     @Input() reservation?: ReservationResponse;
     @Input() showStatus: boolean = false;
@@ -24,11 +27,19 @@ export class ReservationCardComponent {
     }
 
     acceptReservation() {
-        console.log('Accepted reservation');
+        if (!this.reservation) return;
+
+        this.reservationService.accept(this.reservation?.id).then(() => {
+            console.log('Accepted reservation');
+        });
     }
 
     rejectReservation() {
-        console.log('Rejected reservation');
+        if (!this.reservation) return;
+
+        this.reservationService.reject(this.reservation?.id).then(() => {
+            console.log('Rejected reservation');
+        });
     }
 
 }

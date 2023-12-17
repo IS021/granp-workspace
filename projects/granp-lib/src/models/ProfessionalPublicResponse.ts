@@ -1,6 +1,7 @@
 import { Address } from "./Address";
 import { Gender } from "./Gender";
 import { Profession } from "./Profession";
+import { ReservationPublicResponse } from "./ReservationPublicResponse";
 import { TimeTableResponse } from "./TimeTableResponse";
 
 export interface ProfessionalPublicResponse {
@@ -24,7 +25,8 @@ export interface ProfessionalPublicResponse {
     longTimeJob: boolean;
     shortTimeJob: boolean;
 
-    timeTable?: TimeTableResponse[];
+    timeTable?: TimeTableResponse;
+    reservations?: ReservationPublicResponse[];
 
 }
 

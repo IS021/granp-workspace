@@ -1,8 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonDatetime, IonHeader, IonNote, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonDatetime, IonHeader, IonNote, IonTitle, IonToolbar, LoadingController } from '@ionic/angular/standalone';
 import { ReservationCardComponent } from '../reservation-card/reservation-card.component';
 import { ReservationResponse, ReservationStatus, Gender, Profession, Address } from '../../models';
+import { ReservationService } from '../reservation.service';
 
 @Component({
     selector: 'gp-calendar.page',
@@ -14,95 +15,10 @@ import { ReservationResponse, ReservationStatus, Gender, Profession, Address } f
 })
 export class CalendarPage {
 
-    today = new Date().toISOString();
+    reservationService = inject(ReservationService);
+    loading = inject(LoadingController);
 
-    /*reservationResponse1: ReservationResponse = {
-        id: 'SignorPiomaggio',
-        professional: {
-            profilePicture: 'lollo',
-            firstName: 'Antonio',
-            lastName: 'Piomaggio',
-            birthDate: '01/01/0001',
-            age: 64,
-            gender: Gender.Other,
-            email: 'piomaggiotuttoattaccato@piomaggio.com',
-            phoneNumber: '3334445566',
-            description: 'Mi piacciono i droni',
-            profession: Profession.Other,
-            address: 'Via dei Droni, 3',
-            isVerified: true,
-            hourlyRate: 22,
-            longTimeJob: false,
-            shortTimeJob: true
-        },
-        customer: {
-            profilePicture: 'd',
-            elderFirstName: 'c',
-            elderLastName: 'df',
-            elderAddress: new Address(),
-            elderBirthDate: 'sd',
-            elderAge: 23,
-            elderTelephoneNumber: 'dv',
-            elderDescription: 'sd',
-            firstName: 'sdc',
-            lastName: 'sd',
-            phoneNumber: 'wd',
-            isElder: true
-        },
-        date: '2023-12-08',
-        start: '18:08',
-        end: '18:38',
-        status: ReservationStatus.Accepted
-    }
-
-    reservationResponse2: ReservationResponse = {
-        id: 'SignorPiomaggio',
-        professional: {
-            profilePicture: 'lollo',
-            firstName: 'Antonio',
-            lastName: 'Piomaggio',
-            birthDate: '01/01/0001',
-            age: 64,
-            gender: Gender.Other,
-            email: 'piomaggiotuttoattaccato@piomaggio.com',
-            phoneNumber: '3334445566',
-            description: 'Mi piacciono i droni',
-            profession: Profession.Other,
-            address: 'Via dei Droni, 3',
-            isVerified: true,
-            hourlyRate: 22,
-            longTimeJob: false,
-            shortTimeJob: true
-        },
-        customer: {
-            profilePicture: 'd',
-            elderFirstName: 'c',
-            elderLastName: 'df',
-            elderAddress: new Address(),
-            elderBirthDate: 'sd',
-            elderAge: 23,
-            elderTelephoneNumber: 'dv',
-            elderDescription: 'sd',
-            firstName: 'sdc',
-            lastName: 'sd',
-            phoneNumber: 'wd',
-            isElder: true
-        },
-        date: '2023-12-10',
-        start: '18:08',
-        end: '18:38',
-        status: ReservationStatus.Declined
-    }*/
-
-
-
-    // Generate sample reservations
-    allReservations: ReservationResponse[] = [
-        /*this.reservationResponse1,
-        this.reservationResponse2,
-        this.reservationResponse1,
-        this.reservationResponse2,*/
-    ];
+    allReservations: ReservationResponse[] = [];
 
     // Filtered reservations
     reservations: ReservationResponse[] = [];
@@ -110,26 +26,47 @@ export class CalendarPage {
     // Occupied days
     occupiedDays: any[] = [];
 
-    constructor() {
-        // Filter reservations by date
-        this.filterByDate(this.today);
+    // Today's date
+    today = new Date().toISOString();
 
-        // Get occupied days from reservations
-        this.occupiedDays = this.allReservations.filter(reservation => {
-            return reservation.status !== ReservationStatus.Declined && reservation.status !== ReservationStatus.Cancelled
-        }).map(reservation => {
-            return {
-                date: reservation.date,
-                textColor: 'var(--ion-color-primary-contrast)',
-                backgroundColor: 'var(--ion-color-primary)',
-            }
+    constructor() {}
+
+    // ionViewWillEnter() { ??
+    ngOnInit() {
+        // Get reservations
+        this.loading.create({
+            message: 'Carico prenotazioni...'
+        }).then(loading => {
+            loading.present();
+
+            this.reservationService.getAll().then(reservations => {
+                this.allReservations = reservations;
+
+                // Filter reservations by date
+                this.filterByDate(this.today);
+
+                // Get occupied days from reservations
+                this.occupiedDays = this.allReservations.filter(reservation => {
+                    return reservation.status !== ReservationStatus.Declined && reservation.status !== ReservationStatus.Cancelled
+                }).map(reservation => {
+                    return {
+                        date: reservation.start.split('T')[0],
+                        textColor: 'var(--ion-color-primary-contrast)',
+                        backgroundColor: 'var(--ion-color-primary)',
+                    }
+                });
+
+                loading.dismiss();
+            });
         });
+
     }
+
 
     filterByDate(date: string) {
         // Filter reservations by date
         this.reservations = this.allReservations.filter(reservation => {
-            const reservationDate = new Date(reservation.date).toLocaleDateString();
+            const reservationDate = new Date(reservation.start).toLocaleDateString();
             const targetDate = new Date(date).toLocaleDateString();
 
             // console.log(reservationDate, targetDate);

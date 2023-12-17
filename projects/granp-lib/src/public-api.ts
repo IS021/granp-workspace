@@ -8,6 +8,7 @@ export * from './lib/profile.service';
 export * from './lib/geocoding.service';
 export * from './lib/search.service';
 export * from './lib/reservation.service';
+export * from './lib/timetable.service';
 
 export * from './lib/granp-lib.module';
 
