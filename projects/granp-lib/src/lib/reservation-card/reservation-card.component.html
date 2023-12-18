@@ -18,7 +18,11 @@
             <ion-label *ngIf="reservation?.status === 3">Annullata</ion-label>
         </ng-container>
 
+<<<<<<< HEAD
         <p>{{toLocaleDateString(reservation?.start)}} - {{toLocaleTimeString(reservation?.start)}} - {{toLocaleTimeString(reservation?.end)}}</p>
+=======
+        <p>{{toLocaleDateString(reservation?.start!.split('T')[0])}} - {{reservation?.start}} - {{reservation?.end}}</p>
+>>>>>>> a6bccfd369874c6735c8124f0a143b8acbefc0cd
         
         <div class="container" *ngIf="showButtons && forProfessional">
             <ion-button color="success" size="small" (click)="acceptReservation()">Accetta</ion-button>
