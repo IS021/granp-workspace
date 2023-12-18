@@ -20,26 +20,31 @@ export class CameraService {
         return;
     }
 
-    let croppedImage = this.cropAndResizeImage(image.base64String);
+    let croppedImage = await this.cropAndResizeImage(image.base64String);
 
     return 'data:image/jpeg;base64,' + croppedImage;
   }
 
-  private cropAndResizeImage(imageBase64: string): string {
-    let img = new Image();
-    img.src = 'data:image/jpeg;base64,' + imageBase64;
+  private async cropAndResizeImage(imageBase64: string): Promise<string> {
+    return new Promise((resolve) => {
+      let img = new Image();
 
-    let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('2d');
+      img.onload = () => {
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
 
-    let shortestSide = Math.min(img.width, img.height);
+        let shortestSide = Math.min(img.width, img.height);
 
-    canvas.width = 256;
-    canvas.height = 256;
+        canvas.width = 256;
+        canvas.height = 256;
 
-    ctx!.drawImage(img, 0, 0, shortestSide, shortestSide, 0, 0, 256, 256);
+        ctx!.drawImage(img, 0, 0, shortestSide, shortestSide, 0, 0, 256, 256);
 
-    return canvas.toDataURL().split(',')[1];
+        resolve(canvas.toDataURL().split(',')[1]);
+      };
+
+      img.src = 'data:image/jpeg;base64,' + imageBase64;
+    });
   }
   
 }

@@ -1,0 +1,7 @@
+{
+  "name": "granp-workspace",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
