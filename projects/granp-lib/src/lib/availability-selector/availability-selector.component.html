@@ -43,15 +43,6 @@
       <ion-checkbox [(ngModel)]="newAvailability.Sunday">Domenica</ion-checkbox>
     </ion-item>
 
-    <ion-item>
-      <ion-select [multiple]="false" label="Presso" labelPlacement="floating" [(ngModel)]="newAvailability.Place"
-        required>
-        <ion-select-option [value]="0">Studio</ion-select-option>
-        <ion-select-option [value]="1">Domicilio</ion-select-option>
-        <ion-select-option [value]="2">Studio/Domicilio</ion-select-option>
-      </ion-select>
-    </ion-item>
-
     <ion-button [style.margin-top]="'1em'" fill="outline" expand="block" size="medium" (click)="addNewAvailability()">Aggiungi</ion-button>
 
 </ion-list>
@@ -69,7 +60,6 @@
         <span *ngIf="availability.Sunday">Domenica, </span>
         <br>
         <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
-        <b>Presso:</b> {{checkPlace(availability.Place)}} <br>
         <div *ngIf="editable" [style.text-align]="'center'" [style.margin-top]="'0.5em'">
             <ion-icon name="trash-outline" slot="end" size="large" (click)="removeAvailability(availability)"></ion-icon>
         </div>

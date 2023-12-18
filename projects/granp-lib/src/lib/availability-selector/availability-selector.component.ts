@@ -212,17 +212,6 @@ export class AvailabilitySelectorComponent {
     this.timeSlotsChange.emit(this.timeSlots);
   }
 
-  checkPlace(place: Place) {
-    switch (place) {
-      case Place.Both:
-        return 'Studio/Domicilio';
-      case Place.Domicile:
-        return 'Domicilio';
-      case Place.Office:
-        return 'Studio';
-    }
-  }
-
   constructor() {
     addIcons({ trashOutline });
   }
