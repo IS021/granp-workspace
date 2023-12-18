@@ -59,12 +59,8 @@
         <span *ngIf="availability.Saturday">Sabato, </span>
         <span *ngIf="availability.Sunday">Domenica, </span>
         <br>
-<<<<<<< HEAD
         <!-- Remove seconds from start end end hour-->
         <b>Fascia oraria: </b>{{availability.StartHour.slice(0, 5)}} - {{availability.EndHour.slice(0, 5)}}<br>
-=======
-        <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
->>>>>>> 5a6cfb4e58b363c1d680e80a690f6725334b5c68
         <div *ngIf="editable" [style.text-align]="'center'" [style.margin-top]="'0.5em'">
             <ion-icon name="trash-outline" slot="end" size="large" (click)="removeAvailability(availability)"></ion-icon>
         </div>
