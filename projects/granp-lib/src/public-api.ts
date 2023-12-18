@@ -29,5 +29,6 @@ export * from './lib/chat-page/chat.page';
 export * from './lib/login-page/login.page';
 export * from './lib/chat-list-page/chat-list.page';
 export * from './lib/calendar-page/calendar.page';
+export * from './lib/info-reservation/info-reservation.page';
 
 export * from './models';

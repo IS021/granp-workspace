@@ -31,8 +31,8 @@ export class CalendarPage {
 
     constructor() {}
 
-    // ionViewWillEnter() { ??
-    ngOnInit() {
+    ionViewWillEnter() {
+    //ngOnInit() {
         // Get reservations
         this.loading.create({
             message: 'Carico prenotazioni...'
@@ -41,6 +41,8 @@ export class CalendarPage {
 
             this.reservationService.getAll().then(reservations => {
                 this.allReservations = reservations;
+
+                console.log('All reservations', this.allReservations);
 
                 // Filter reservations by date
                 this.filterByDate(this.today);

@@ -10,4 +10,8 @@ export const granpRoutes: Routes = [
         path: 'chat/:id',
         loadComponent: () => import('./chat-page/chat.page').then((m) => m.ChatPage),
     },
+    {
+        path: 'info-reservation/:id',
+        loadComponent: () => import('./info-reservation/info-reservation.page').then((m) => m.InfoReservationPage),
+    }
 ];

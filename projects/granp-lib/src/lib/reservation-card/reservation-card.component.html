@@ -1,5 +1,5 @@
 <ion-card>
-    <ion-card-header class="header">
+    <ion-card-header class="header" (click)="showInfo()">
         <!-- Add (click) event binding to call SHOW DETAILS -->
         <ion-card-title *ngIf="!forProfessional" class="title">{{reservation?.professional?.firstName}} {{reservation?.professional?.lastName}}</ion-card-title>
         <ion-card-title *ngIf="forProfessional" class="title">{{reservation?.customer?.firstName}} {{reservation?.customer?.lastName}}</ion-card-title>
@@ -18,7 +18,7 @@
             <ion-label *ngIf="reservation?.status === 3">Annullata</ion-label>
         </ng-container>
 
-        <p>{{toLocaleDateString(reservation?.date)}} - {{reservation?.start}} - {{reservation?.end}}</p>
+        <p>{{toLocaleDateString(reservation?.start)}} - {{toLocaleTimeString(reservation?.start)}} - {{toLocaleTimeString(reservation?.end)}}</p>
         
         <div class="container" *ngIf="showButtons && forProfessional">
             <ion-button color="success" size="small" (click)="acceptReservation()">Accetta</ion-button>

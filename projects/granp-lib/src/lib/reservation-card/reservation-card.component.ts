@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonLabel } from '@ionic/angular/standalone';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonLabel, NavController } from '@ionic/angular/standalone';
 
 import { ReservationResponse } from '../../models';
 import { ReservationService } from '../reservation.service';
@@ -15,6 +15,7 @@ import { ReservationService } from '../reservation.service';
 export class ReservationCardComponent {
 
     reservationService = inject(ReservationService);
+    navCtrl = inject(NavController);
 
     @Input() reservation?: ReservationResponse;
     @Input() showStatus: boolean = false;
@@ -24,6 +25,12 @@ export class ReservationCardComponent {
     toLocaleDateString(date?: string) {
         if (!date) return '';
         return new Date(date).toLocaleDateString();
+    }
+
+    // To locale time string (hh:mm)
+    toLocaleTimeString(date?: string) {
+        if (!date) return '';
+        return new Date(date).toLocaleTimeString().slice(0, 5);
     }
 
     acceptReservation() {
@@ -40,6 +47,12 @@ export class ReservationCardComponent {
         this.reservationService.reject(this.reservation?.id).then(() => {
             console.log('Rejected reservation');
         });
+    }
+
+    showInfo() {
+        if (!this.reservation) return;
+
+        this.navCtrl.navigateForward('/info-reservation/' + this.reservation.id);
     }
 
 }
