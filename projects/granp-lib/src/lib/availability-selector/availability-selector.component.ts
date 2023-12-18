@@ -68,10 +68,19 @@ export class AvailabilitySelectorComponent {
 
   @Input() editable: boolean = true;
 
-  @Input() timeSlots: TimeSlotRequest[] = [];
-  @Output() timeSlotsChange: EventEmitter<TimeSlotRequest[]> = new EventEmitter<
-    TimeSlotRequest[]
-  >();
+  private _timeSlots: TimeSlotRequest[] = [];
+
+  @Input() set timeSlots(slots: TimeSlotRequest[]) {
+    this._timeSlots = slots;
+    this.convertTimeSlotsToAvailabilities();
+  }
+
+  get timeSlots() {
+    return this._timeSlots;
+  }
+
+
+  @Output() timeSlotsChange: EventEmitter<TimeSlotRequest[]> = new EventEmitter<TimeSlotRequest[]>();
 
 
   convertTimeSlotsToAvailabilities() {
