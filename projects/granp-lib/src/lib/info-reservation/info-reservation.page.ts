@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { personOutline, medicalOutline, calendarOutline, timeOutline, ellipsisHorizontal, checkmarkOutline, closeOutline, trashOutline, chatboxOutline } from 'ionicons/icons';
 import {
     IonBackButton,
@@ -17,10 +17,15 @@ import {
     IonText,
     IonTitle,
     IonToolbar,
-    IonButton
+    IonButton,
+    NavController,
+    LoadingController
 } from '@ionic/angular/standalone';
 import { ReservationResponse, Gender, Profession, ReservationStatus, Address } from '../../models'
 import { addIcons } from 'ionicons';
+import { ReservationService } from '../reservation.service';
+import { LibConfigService } from '../granp-lib.module';
+import { ChatService } from '../chat.service';
 
 @Component({
     selector: 'app-info-reservation',
@@ -48,57 +53,25 @@ import { addIcons } from 'ionicons';
 
 export class InfoReservationPage implements OnInit {
 
-    reservationResponse: ReservationResponse = {
-        id: 'SignorPiomaggio',
-        professional: {
-            id: "",
-            profilePicture: 'lollo',
-            firstName: 'Antonio',
-            lastName: 'Piomaggio',
-            birthDate: '01/01/0001',
-            age: 64,
-            gender: Gender.Other,
-            email: 'piomaggiotuttoattaccato@piomaggio.com',
-            phoneNumber: '3334445566',
-            description: 'Mi piacciono i droni',
-            profession: Profession.Other,
-            address: new Address(), //'Via dei Droni, 3',
-            isVerified: true,
-            hourlyRate: 22,
-            longTimeJob: false,
-            shortTimeJob: true
-        },
-        customer: {
-            profilePicture: 'd',
-            elderFirstName: 'c',
-            elderLastName: 'df',
-            elderAddress: new Address(),
-            elderAge: 23,
-            elderPhoneNumber: 'dv',
-            elderDescription: 'sd',
-            firstName: 'sdc',
-            lastName: 'sd',
-            phoneNumber: 'wd',
-            isElder: true
-        },
-        start: '2023-10-11T18:08:00Z',
-        end: '2023-10-11T19:08:00Z',
-        status: ReservationStatus.Accepted
-    }
+    reservationService = inject(ReservationService);
+    activatedRoute = inject(ActivatedRoute);
+    libConfig = inject(LibConfigService);
+    navCtrl = inject(NavController);
+    loading = inject(LoadingController);
+    chatService = inject(ChatService);
+
+    reservationResponse?: ReservationResponse;
 
     constructor(private router: Router) {
         addIcons({ personOutline, medicalOutline, calendarOutline, timeOutline, ellipsisHorizontal, checkmarkOutline, closeOutline, trashOutline, chatboxOutline })
     }
 
     ngOnInit() {
-    }
+        const id = this.activatedRoute.snapshot.params['id'];
 
-    navigateToAnotherPage() {
-        // Define the route you want to navigate to
-        const destinationRoute = '/professional-details'; // Update with your actual route
-
-        // Use the router to navigate to the destination page
-        this.router.navigate([destinationRoute]);
+        this.reservationService.get(id).then(reservation => {
+            this.reservationResponse = reservation;
+        });
     }
 
     toLocaleDateString(date?: string) {
@@ -114,7 +87,7 @@ export class InfoReservationPage implements OnInit {
 
 
     checkStatus(): string {
-        switch (this.reservationResponse.status) {
+        switch (this.reservationResponse?.status) {
             case ReservationStatus.Pending:
                 return 'In attesa di conferma';
             case ReservationStatus.Accepted:
@@ -123,11 +96,13 @@ export class InfoReservationPage implements OnInit {
                 return 'Prenotazione declinata';
             case ReservationStatus.Cancelled:
                 return 'Prenotazione cancellata';
+            default:
+                return 'Stato prenotazione sconosciuto';
         }
     }
 
     checkStatusIcon(): string {
-        switch (this.reservationResponse.status) {
+        switch (this.reservationResponse?.status) {
             case ReservationStatus.Pending:
                 return 'ellipsis-horizontal';
             case ReservationStatus.Accepted:
@@ -136,11 +111,13 @@ export class InfoReservationPage implements OnInit {
                 return 'close-outline';
             case ReservationStatus.Cancelled:
                 return 'trash-outline';
+            default:
+                return 'ellipsis-horizontal';
         }
     }
 
     checkStatusIconColor(): string {
-        switch (this.reservationResponse.status) {
+        switch (this.reservationResponse?.status) {
             case ReservationStatus.Pending:
                 return 'warning';
             case ReservationStatus.Accepted:
@@ -149,16 +126,91 @@ export class InfoReservationPage implements OnInit {
                 return 'danger';
             case ReservationStatus.Cancelled:
                 return 'danger';
+            default:
+                return 'warning';
         }
     }
 
     showCancelButton(): boolean {
         // Only show the cancel button if the status is 'Pending' or 'Accepted'
         return (
-            this.reservationResponse.status === ReservationStatus.Pending ||
-            this.reservationResponse.status === ReservationStatus.Accepted
+            this.reservationResponse?.status === ReservationStatus.Pending ||
+            this.reservationResponse?.status === ReservationStatus.Accepted
         );
     }
 
+    cancelReservation() {
+        if (!this.reservationResponse) return;
+
+        this.reservationService.cancel(this.reservationResponse?.id).then(() => {
+            console.log('Cancelled reservation');
+        });
+    }
+
+    startChat() {
+        if (this.libConfig.role == 'customer') {
+            if (this.reservationResponse?.professional) {
+                console.log("Creating chat with professional " + this.reservationResponse.professional.id);
+                this.loading.create({
+                    message: "Creazione chat in corso..."
+                }).then((loading) => {
+                    loading.present();
+                    this.chatService.createChat(this.reservationResponse!.professional.id).then((chatId) => {
+                        loading.dismiss();
+                        this.navCtrl.navigateForward(['chat', chatId]);
+                    });
+                });
+            } else {
+                console.log("Professional not found");
+            }
+        } else if (this.libConfig.role == 'professional') {
+            if (this.reservationResponse?.customer) {
+                console.log("Creating chat with customer " + this.reservationResponse.customer.id);
+                this.loading.create({
+                    message: "Creazione chat in corso..."
+                }).then((loading) => {
+                    loading.present();
+                    this.chatService.createChat(this.reservationResponse!.customer.id).then((chatId) => {
+                        loading.dismiss();
+                        this.navCtrl.navigateForward(['chat', chatId]);
+                    });
+                });
+            } else {
+                console.log("Customer not found");
+            }
+        }
+    }
+
+    acceptReservation() {
+        if (!this.reservationResponse) return;
+
+        this.reservationService.accept(this.reservationResponse?.id).then(() => {
+            console.log('Accepted reservation');
+        });
+    }
+
+    rejectReservation() {
+        if (!this.reservationResponse) return;
+
+        this.reservationService.reject(this.reservationResponse?.id).then(() => {
+            console.log('Rejected reservation');
+        });
+    }
+
+    openCustomerDetails() {
+        this.navCtrl.navigateForward(this.libConfig.profileRedirectPath, {
+            queryParams: {
+                id: this.reservationResponse?.customer.id
+            }
+        });
+    }
+
+    openProfessionalDetails() {
+        this.navCtrl.navigateForward(this.libConfig.profileRedirectPath, {
+            queryParams: {
+                id: this.reservationResponse?.professional.id
+            }
+        });
+    }
 
 }

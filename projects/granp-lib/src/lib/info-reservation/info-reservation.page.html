@@ -11,49 +11,64 @@
 
 <ion-content>
 <ion-list [inset]="true">
-    <ion-item>
+    <ion-item *ngIf="reservationResponse && libConfig.role == 'professional'" (click)="openCustomerDetails()">
       <ion-icon aria-hidden="true" name="person-outline" slot="start" color="primary"></ion-icon>
-      <ion-label  (click)="navigateToAnotherPage()">
-        {{reservationResponse.professional.firstName}} {{reservationResponse.professional.lastName}}
+      <ion-label>
+        {{reservationResponse.customer.firstName}} {{reservationResponse.customer.lastName}}
       </ion-label>
     </ion-item>
-    <ion-item>
-      <ion-icon aria-hidden="true" name="medical-outline" slot="start" color="primary"></ion-icon>
+    <ion-item *ngIf="reservationResponse && libConfig.role == 'customer'">
+      <ion-icon aria-hidden="true" name="person-outline" slot="start" color="primary" (click)="openProfessionalDetails()"></ion-icon>
       <ion-label>
-        {{reservationResponse.professional.profession}}
+        {{reservationResponse.professional.firstName}} {{reservationResponse.professional.lastName}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-icon aria-hidden="true" name="calendar-outline" slot="start" color="primary"></ion-icon>
       <ion-label>
-        {{toLocaleDateString(reservationResponse.start)}}
+        {{toLocaleDateString(reservationResponse?.start)}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-icon aria-hidden="true" name="time-outline" slot="start" color="primary"></ion-icon>
       <ion-label>
-        {{toLocaleTimeString(reservationResponse.start)}} - {{toLocaleTimeString(reservationResponse.end)}}
+        {{toLocaleTimeString(reservationResponse?.start)}} - {{toLocaleTimeString(reservationResponse?.end)}}
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="reservationResponse.status !== undefined">
+    <ion-item *ngIf="reservationResponse?.status !== undefined">
       <ion-icon aria-hidden="true" name="{{checkStatusIcon()}}" slot="start" color="{{checkStatusIconColor()}}"></ion-icon>
       <ion-label class="scroll-text">
         {{ checkStatus() }}
       </ion-label>
     </ion-item>  
     <ion-row class="ion-justify-content-center">
-      <ion-col size="auto" class="custom-button-col">
-        <ion-button fill="outline" class="custom-button">
+
+      <ion-col size="auto" class="custom-button-col" *ngIf="libConfig.role == 'customer'">
+        <ion-button fill="outline" class="custom-button" (click)="startChat()">
           <ion-icon slot="start" name="chatbox-outline"></ion-icon>
           Chat
         </ion-button>
       </ion-col>
-      <ion-col size="auto" class="custom-button-col">
-        <ion-button fill="outline" color="danger" *ngIf="showCancelButton()">
+      
+      <ion-col size="auto" class="custom-button-col" *ngIf="reservationResponse?.status == 0 && libConfig.role == 'professional'">
+        <ion-button fill="outline" color="success" class="custom-button" (click)="acceptReservation()">
+          Accetta
+        </ion-button>
+      </ion-col>
+      
+      <ion-col size="auto" class="custom-button-col" *ngIf="reservationResponse?.status == 0 && libConfig.role == 'professional'">
+        <ion-button fill="outline" color="danger" class="custom-button" (click)="rejectReservation()">
+          Rifiuta
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="auto" class="custom-button-col" *ngIf="reservationResponse?.status == 1">
+        <ion-button fill="outline" color="danger" *ngIf="showCancelButton()" (click)="cancelReservation()">
           <ion-icon slot="start" name="close-outline"></ion-icon>
           Cancella
         </ion-button>
       </ion-col>
+
     </ion-row>
   </ion-list>
 </ion-content>

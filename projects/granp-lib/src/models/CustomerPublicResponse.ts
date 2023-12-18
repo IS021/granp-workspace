@@ -2,6 +2,7 @@ import { Address } from "./Address";
 import { Gender } from "./Gender";
 
 export interface CustomerPublicResponse {
+    id: string;
     profilePicture: string;
 
     elderFirstName: string;
