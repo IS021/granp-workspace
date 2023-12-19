@@ -102,6 +102,8 @@ export class ChatPage {
             return '';
         }
 
+        index = this.chat.messages.length - index - 1;
+
         const message = this.chat.messages[index];
         const previousMessage = this.chat.messages[index - 1];
 
