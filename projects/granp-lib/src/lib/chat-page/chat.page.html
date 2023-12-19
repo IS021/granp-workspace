@@ -18,7 +18,7 @@
 
 <ion-content [scrollY]="false">
     <div lines="none" class="chat-list">
-        <div *ngFor="let message of chat?.messages?.reverse(), index as i"
+        <div *ngFor="let message of chat?.messages?.slice()?.reverse(), index as i"
             [class]="'message-line ' + (message.sender === 'user' ? 'end' : 'start')"
         >
             <div [class]="'message ' + getMessageClass(i)">
