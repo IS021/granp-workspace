@@ -49,7 +49,7 @@ export class ReservationCardComponent {
     rejectReservation() {
         if (!this.reservation) return;
 
-        this.reservationService.reject(this.reservation?.id).then(() => {
+        this.reservationService.decline(this.reservation?.id).then(() => {
             console.log('Rejected reservation');
             this.onAction.emit();
         });

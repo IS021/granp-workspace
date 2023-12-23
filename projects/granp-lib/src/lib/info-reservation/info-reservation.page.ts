@@ -189,10 +189,10 @@ export class InfoReservationPage implements OnInit {
         });
     }
 
-    rejectReservation() {
+    declineReservation() {
         if (!this.reservationResponse) return;
 
-        this.reservationService.reject(this.reservationResponse?.id).then(() => {
+        this.reservationService.decline(this.reservationResponse?.id).then(() => {
             console.log('Rejected reservation');
         });
     }

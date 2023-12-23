@@ -57,7 +57,7 @@
       </ion-col>
       
       <ion-col size="auto" class="custom-button-col" *ngIf="reservationResponse?.status == 0 && libConfig.role == 'professional'">
-        <ion-button fill="outline" color="danger" class="custom-button" (click)="rejectReservation()">
+        <ion-button fill="outline" color="danger" class="custom-button" (click)="declineReservation()">
           Rifiuta
         </ion-button>
       </ion-col>

@@ -82,9 +82,9 @@ export class ReservationService {
         });
     }
 
-    reject(id: string): Promise<void> {
+    decline(id: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            this.http.post<void>(this.apiUrl + '/reject/' + id, '').subscribe({
+            this.http.post<void>(this.apiUrl + '/decline/' + id, '').subscribe({
                 next: () => {
                     resolve();
                 },
