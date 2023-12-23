@@ -16,8 +16,8 @@
   <ion-list>
     <ion-item *ngFor="let chat of chatService.chatDict.values()" button detail="false" (click)="openChat(chat.id)">
       <ion-avatar slot="start">
-        <img *ngIf="chat.profilePicture !== null" [src]="chat.profilePicture"/>
-        <img *ngIf="chat.profilePicture === null" src="/assets/default-profile-picture.png"/>
+        <img *ngIf="chat.profilePicture != ''" [src]="chat.profilePicture"/>
+        <img *ngIf="chat.profilePicture == ''" src="/assets/avatar.svg"/>
       </ion-avatar>
       <ion-label>
         <strong>{{chat.name}}</strong>

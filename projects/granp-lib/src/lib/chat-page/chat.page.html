@@ -7,8 +7,8 @@
         <ion-title>
             <div class="profile-bar" (click)="profileClicked()">
                 <ion-avatar>
-                    <img *ngIf="chat?.profilePicture !== null" [src]="chat?.profilePicture" />
-                    <img *ngIf="chat?.profilePicture === null" src="/assets/default-profile-picture.png" />
+                    <img *ngIf="chat?.profilePicture != ''" [src]="chat?.profilePicture" />
+                    <img *ngIf="chat?.profilePicture == ''" src="/assets/avatar.svg" />
                 </ion-avatar>
                 <ion-text class="title">{{ chat?.name }}</ion-text>
             </div>
